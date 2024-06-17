@@ -122,88 +122,8 @@ app.get("/", async (req, res) => {
 
 function generateMapHTML(naurtData: NaurtResponse): string {
 
-    var data = [];
-
-    var layout = {};
-
-    if (naurtData.best_match !== undefined) {
-        for (var feat of naurtData.best_match.geojson.features) {
-            if (feat.properties.naurt_type === "naurt_door") {
-
-                const points: number[][] = feat.geometry.coordinates;
-
-                layout = {
-                    mapbox: {
-                        style: "carto-positron", 
-                        center: {
-                            lat: points[0][1],
-                            lon: points[0][0]
-                        },
-                        zoom: 15
-                    },
-                    showlegend: false,
-                    autosize: true
-                };
-
-                data.push({
-                    type: "scattermapbox",
-                    lat: points.map(coords => coords[1]),
-                    lon: points.map(coords => coords[0]),
-                    text: `${naurtData.best_match?.address} - ${feat.properties.naurt_type}`,
-                    marker: {size: 9}
-                })
-            } else {
-                const points: number[][][] = feat.geometry.coordinates;
-                
-                for (var shape of points) {
-                    data.push({
-                        type: "scattermapbox",
-                        fill: "toself",
-                        lat: shape.map(coords => coords[1]),
-                        lon: shape.map(coords => coords[0]),
-                        text: `${naurtData.best_match?.address} - ${feat.properties.naurt_type}`,
-                        mode: "lines"
-                    })
-                }
-                
-            }
-        }
-    }
-
-    if (naurtData.additional_matches !== undefined) {
-        for (var match of naurtData.additional_matches) {
-            for (var feat of match.geojson.features) {
-                if (feat.properties.naurt_type === "naurt_door") {
-                    const points: number[][] = feat.geometry.coordinates;
-                    data.push({
-                        type: "scattermapbox",
-                        lat: points.map(coords => coords[1]),
-                        lon: points.map(coords => coords[0]),
-                        text: `${match.address} - ${feat.properties.naurt_type}`,
-                        marker: {size: 9}
-                    })
-                } else {
-                    const points: number[][][] = feat.geometry.coordinates;
-                    
-                    for (var shape of points) {
-                        data.push({
-                            type: "scattermapbox",
-                            fill: "toself",
-                            lat: shape.map(coords => coords[1]),
-                            lon: shape.map(coords => coords[0]),
-                            text: `${match.address} - ${feat.properties.naurt_type}`,
-                            mode: "lines"
-                        })
-                    }
-                    
-                }
-            }
-        }
-    }
-    
-
-    
-    
+    var naurtExtractor = new NaurtExtractor();
+    naurtExtractor.extractFromNaurt(naurtData);
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -222,9 +142,9 @@ function generateMapHTML(naurtData: NaurtResponse): string {
 <body>
   <div class="container" id="mapDiv"></div>
   <script>
-    var data = JSON.parse('${JSON.stringify(data)}');
+    var data = JSON.parse('${JSON.stringify(naurtExtractor.data)}');
 
-    var layout = JSON.parse('${JSON.stringify(layout)}');
+    var layout = JSON.parse('${JSON.stringify(naurtExtractor.layout)}');
 
     Plotly.newPlot("mapDiv", data, layout);
   </script>
@@ -235,6 +155,97 @@ function generateMapHTML(naurtData: NaurtResponse): string {
     return htmlContent;
 }
 
+
+class NaurtExtractor {
+    private _data: Object[];
+    private _layout: Object;
+
+    constructor() {
+        this._data = [];
+        this._layout = {}
+    }
+
+    public get data(): Object[] {
+        return this._data;
+    }
+
+    public get layout(): Object {
+        return this._layout;
+    }
+
+    private set layout(newLayout: Object) {
+        this._layout = newLayout;
+    }
+
+    private appendToData(newData: Object) {
+        this._data.push(newData);
+    }
+
+    private generateLayout(points: number[][]) {
+        const newLayout = {
+            mapbox: {
+                style: "carto-positron", 
+                center: {
+                    lat: points[0][1],
+                    lon: points[0][0]
+                },
+                zoom: 15
+            },
+            showlegend: false,
+            autosize: true
+        };
+
+        this.layout = newLayout;
+    }
+
+    public extractFromNaurt(naurtResponse: NaurtResponse) {
+        if (naurtResponse.best_match !== undefined) {
+            this.extractFromNaurtInner(naurtResponse.best_match, true);
+        }
+
+        if (naurtResponse.additional_matches !== undefined) {
+            for (var naurtData of naurtResponse.additional_matches) {
+                this.extractFromNaurtInner(naurtData, false);
+            }
+        }
+    }
+
+    private extractFromNaurtInner(naurtData: DestinationResponse, best_match: boolean) {
+        for (var feat of naurtData.geojson.features) {
+            if (feat.properties.naurt_type === "naurt_door") {
+    
+                const points: number[][] = feat.geometry.coordinates;
+                
+                if (best_match) {
+                    this.generateLayout(points);
+                }
+                
+    
+                this.appendToData({
+                    type: "scattermapbox",
+                    lat: points.map(coords => coords[1]),
+                    lon: points.map(coords => coords[0]),
+                    text: `${naurtData.address} - ${feat.properties.naurt_type}`,
+                    marker: {size: 9}
+                })
+            } else {
+                const points: number[][][] = feat.geometry.coordinates;
+                
+                for (var shape of points) {
+                    this.appendToData({
+                        type: "scattermapbox",
+                        fill: "toself",
+                        lat: shape.map(coords => coords[1]),
+                        lon: shape.map(coords => coords[0]),
+                        text: `${naurtData.address} - ${feat.properties.naurt_type}`,
+                        mode: "lines"
+                    })
+                }
+                
+            }
+        }
+    }
+}
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

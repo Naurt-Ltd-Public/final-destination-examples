@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import Optional, Dict, List
 import json
 from keplergl import KeplerGl
-from flask import Flask, make_response
+from flask import Flask, request
 
 ENDPOINT = "https://api.naurt.net/final-destination/v1"
 
@@ -38,27 +38,54 @@ app = Flask(__name__)
 def main():
     headers = {"Authorization": API_KEY, "content-type": "application/json"}
 
-    body = NaurtRequest(
-        address_string="Grand Hotel",
-        latitude=50.83,
-        longitude=-0.13,
-        additional_matches=False,
-        distance_filter=25000,
-    ).dict(exclude_none=True)
-    response = requests.post(ENDPOINT, headers=headers, json=body)
+    address = request.args.get("address", type=str)
+    latitude = request.args.get("latitude", type=float)
+    longitude = request.args.get("longitude", type=float)
+    distance = request.args.get("distance", type=int)
 
-    print(response.text)
+    body = NaurtRequest(
+        address_string=address,
+        latitude=latitude,
+        longitude=longitude,
+        additional_matches=True,
+        distance_filter=distance,
+    ).dict(exclude_none=True)
+
+    response = requests.post(ENDPOINT, headers=headers, json=body)
 
     naurt_response = NaurtResponse.parse_raw(response.text)
 
     my_map = KeplerGl()
 
     for feature in naurt_response.best_match.geojson["features"]:
-        my_map.add_data(data=feature, name=feature["properties"]["naurt_type"])
+        my_map.add_data(data=feature, name="{} - {}".format(naurt_response.best_match.address, feature["properties"]["naurt_type"]))
+
+        if feature["properties"]["naurt_type"] == "naurt_door":
+            config = make_config(feature["geometry"]["coordinates"][0][1], feature["geometry"]["coordinates"][0][0])
+            my_map.config = config
+            
+
+    for additional_match in naurt_response.additional_matches:
+        for feature in additional_match.geojson["features"]:
+            my_map.add_data(data=feature, name="{} - {}".format(additional_match.address, feature["properties"]["naurt_type"]))
     
     html = my_map._repr_html_()
 
     return html, 200
+
+def make_config(latitude: float, longitude: float) -> Dict:
+    config = {
+                "version": "v1",
+                "config": {
+                    "mapState": {
+                        "latitude": latitude,
+                        "longitude": longitude,
+                        "zoom": 15
+                    }
+                }
+            }
+    
+    return config
 
 if __name__ == "__main__":
    app.run(debug=True)
