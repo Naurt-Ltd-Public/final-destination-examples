@@ -8,5 +8,6 @@ Currently supported languages
 
 - Python
 - TypeScript
+- Golang
 
 View the docs for the final destination API [here](https://docs.naurt.com/)
