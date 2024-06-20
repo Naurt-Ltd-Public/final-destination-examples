@@ -6,10 +6,10 @@ import (
 )
 
 type NaurtRequest struct {
-	AddressString     string `json:"address_string,omitempty"`
-	Latitude          string `json:"latitude,omitempty"`
-	Longitude         string `json:"longitude,omitempty"`
-	AdditionalMatches bool   `json:"additional_matches,omitempty"`
+	AddressString     string   `json:"address_string,omitempty"`
+	Latitude          *float64 `json:"latitude,omitempty"`
+	Longitude         *float64 `json:"longitude,omitempty"`
+	AdditionalMatches bool     `json:"additional_matches,omitempty"`
 }
 
 type NaurtResponse struct {
@@ -46,6 +46,11 @@ type CoordinatesWrapper struct {
 	NestedNumber [][][]float32
 }
 
+type Properties struct {
+	NaurtType    string   `json:"naurt_type"`
+	Contributors []string `json:"contributors"`
+}
+
 func (f *CoordinatesWrapper) UnmarshalJSON(data []byte) error {
 
 	var doubleArray [][]float32
@@ -61,9 +66,4 @@ func (f *CoordinatesWrapper) UnmarshalJSON(data []byte) error {
 	}
 
 	return errors.New("`CoordinatesWrapper` did not find valid format")
-}
-
-type Properties struct {
-	NaurtType    string
-	Contributors []string
 }

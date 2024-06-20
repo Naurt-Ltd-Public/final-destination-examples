@@ -3,15 +3,13 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
+	"html/template"
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"sync"
-
-	grob "github.com/MetalBlueberry/go-plotly/graph_objects"
-	"github.com/MetalBlueberry/go-plotly/offline"
 )
 
 var (
@@ -19,47 +17,46 @@ var (
 	once   sync.Once
 )
 
+var tmpl *template.Template
+
 func initialiseApiKey() {
 	// Use sync.Once to ensure this is executed only once
 	once.Do(func() {
 		// Read file content from a file
 		file, err := os.Open("api.key")
 		if err != nil {
-			return
+			panic("`api.key` not found")
 		}
 
 		defer file.Close()
 
 		content, err := io.ReadAll(file)
 		if err != nil {
-			return
+			panic("Could not read API key to string")
 		}
 
 		apiKey = string(content)
 	})
 }
 
-func makeNaurtRequest(address string, latitude string, longitude string) (NaurtResponse, error) {
+func makeNaurtRequest(address string, latitude *float64, longitude *float64) (NaurtResponse, error) {
 	url := "https://api.naurt.net/final-destination/v1"
 
 	data := NaurtRequest{
 		AddressString:     address,
 		Latitude:          latitude,
 		Longitude:         longitude,
-		AdditionalMatches: false,
+		AdditionalMatches: true,
 	}
 
 	jsonData, err := json.Marshal(data)
-
 	if err != nil {
-		return NaurtResponse{}, errors.New("Json Error")
+		return NaurtResponse{}, err
 	}
-
-	fmt.Println(string(jsonData))
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
 	if err != nil {
-		return NaurtResponse{}, errors.New("Request error")
+		return NaurtResponse{}, err
 	}
 
 	req.Header.Set("Content-Type", "application/json")
@@ -68,80 +65,79 @@ func makeNaurtRequest(address string, latitude string, longitude string) (NaurtR
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return NaurtResponse{}, errors.New("Failed to make request")
+		return NaurtResponse{}, err
 	}
+
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return NaurtResponse{}, errors.New("Ca not ready body")
-	}
-
-	naurt, err := convertResponseToNaurt(string(body))
-	if err != nil {
 		return NaurtResponse{}, err
 	}
 
-	return naurt, nil
-
-}
-
-func convertResponseToNaurt(resp string) (NaurtResponse, error) {
 	var naurt NaurtResponse
-
-	if err := json.Unmarshal([]byte(resp), &naurt); err != nil {
+	if err := json.Unmarshal([]byte(body), &naurt); err != nil {
 		return NaurtResponse{}, err
 	}
 
-	return naurt, nil
+	return naurt, err
 }
 
-func convertToMap() {
-	fig := &grob.Fig{
-		Data: grob.Traces{
-			&grob.Bar{
-				Type: grob.TraceTypeBar,
-				X:    []float64{1, 2, 3},
-				Y:    []float64{1, 2, 3},
-			},
-		},
-		Layout: &grob.Layout{
-			Title: &grob.LayoutTitle{
-				Text: "A Figure Specified By Go Struct",
-			},
-		},
-	}
-
-	offline.Show(fig)
+type PageData struct {
+	Data string
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+
 	query := r.URL.Query()
 
 	address := query.Get("address")
-	lat := query.Get("latitude")
-	lon := query.Get("longitude")
 
-	response, err := makeNaurtRequest(address, lat, lon)
+	var latitude *float64
+	if query.Has("latitude") {
+		tmp, err := strconv.ParseFloat(query.Get("latitude"), 64)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		latitude = &tmp
+	}
+
+	var longitude *float64
+	if query.Has("longitude") {
+		tmp, err := strconv.ParseFloat(query.Get("longitude"), 64)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		longitude = &tmp
+	}
+
+	resp, err := makeNaurtRequest(address, latitude, longitude)
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
 
-	naurtJson, err := json.Marshal(response)
+	mapJson, err := plotNaurt(resp)
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
 
-	fmt.Fprintf(w, string(naurtJson))
+	data := PageData{Data: mapJson}
+
+	e := tmpl.Execute(w, data)
+	if e != nil {
+		fmt.Fprintf(w, e.Error())
+	}
 }
 
 func main() {
 
 	initialiseApiKey()
 
-	convertToMap()
+	tmpl = template.Must(template.ParseFiles("templates/index.html"))
 
 	http.HandleFunc("/", handler)
 
