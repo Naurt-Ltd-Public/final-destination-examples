@@ -1,0 +1,11 @@
+[package]
+name = "final-destination-examples"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+plotly = "0.8.4"
+rocket = "0.5.1"
+rocket_codegen = "0.5.1"
+reqwest = "0.12.5"
+tokio = { version = "1.38", features = ["full"] }
