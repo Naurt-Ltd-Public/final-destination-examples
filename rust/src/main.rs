@@ -75,7 +75,7 @@ struct NaurtGeojson {
 
 #[derive(Deserialize)]
 struct Feature {
-    pub geometry: Coordinates,
+    pub geometry: Option<Coordinates>,
     #[serde(rename(deserialize = "type"))]
     pub type_val: String,
     pub properties: Properties,
@@ -138,6 +138,8 @@ async fn handler(
         Err(y) => return Err(RawJson(format!("\"Body Error\":\"{}\"", y))),
     };
 
+    println!("{}", json_text);
+
     let naurt_response = match serde_json::from_str::<NaurtResponse>(&json_text) {
         Ok(x) => x,
         Err(y) => return Err(RawJson(format!("\"Json Error\":\"{}\"", y))),
@@ -177,7 +179,12 @@ fn extract_naurt_inner(
     best_match: bool,
 ) {
     for feat in &data.geojson.features {
-        match &feat.geometry.coordinates {
+        let geometry = match &feat.geometry {
+            Some(x) => x,
+            None => continue,
+        };
+
+        match &geometry.coordinates {
             CoordinatesWrapper::Number(coords) => {
                 if best_match {
                     *layout = Some(
