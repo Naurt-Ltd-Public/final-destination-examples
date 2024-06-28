@@ -72,10 +72,10 @@ function getStringOrNull(value: unknown): string | null {
 
 function getNumberOrNull(value: unknown): number | null {
     if (typeof value === 'string' && !isNaN(Number(value))) {
-      return Number(value);
+        return Number(value);
     }
     return null;
-  }
+}
 
 app.get("/", async (req, res) => {
 
@@ -84,7 +84,7 @@ app.get("/", async (req, res) => {
     const lon = getNumberOrNull(req.query.lon);
 
     const request: NaurtRequest = {
-        address_string: address, 
+        address_string: address,
         latitude: lat,
         longitude: lon,
         additional_matches: true,
@@ -116,7 +116,7 @@ app.get("/", async (req, res) => {
             });
         }
     }
-    
+
 })
 
 
@@ -184,7 +184,7 @@ class NaurtExtractor {
     private generateLayout(points: number[][]) {
         const newLayout = {
             mapbox: {
-                style: "carto-positron", 
+                style: "carto-positron",
                 center: {
                     lat: points[0][1],
                     lon: points[0][0]
@@ -213,24 +213,30 @@ class NaurtExtractor {
     private extractFromNaurtInner(naurtData: DestinationResponse, best_match: boolean) {
         for (var feat of naurtData.geojson.features) {
             if (feat.properties.naurt_type === "naurt_door") {
-    
+                if (feat.geometry === null) {
+                    continue;
+                }
                 const points: number[][] = feat.geometry.coordinates;
-                
+
                 if (best_match) {
                     this.generateLayout(points);
                 }
-                
-    
+
+
                 this.appendToData({
                     type: "scattermapbox",
                     lat: points.map(coords => coords[1]),
                     lon: points.map(coords => coords[0]),
                     text: `${naurtData.address} - ${feat.properties.naurt_type}`,
-                    marker: {size: 9}
+                    marker: { size: 9 }
                 })
             } else {
+                if (feat.geometry === null) {
+                    continue;
+                }
+
                 const points: number[][][] = feat.geometry.coordinates;
-                
+
                 for (var shape of points) {
                     this.appendToData({
                         type: "scattermapbox",
@@ -241,7 +247,7 @@ class NaurtExtractor {
                         mode: "lines"
                     })
                 }
-                
+
             }
         }
     }

@@ -1,0 +1,14 @@
+[package]
+name = "final-destination-examples"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+plotly = "0.8.4"
+rocket = "0.5.1"
+rocket_codegen = "0.5.1"
+reqwest = { version = "0.12.5", features = ["json"] }
+tokio = { version = "1.38", features = ["full"] }
+rocket_dyn_templates = { version = "0.1.0", features = ["tera"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.118"
