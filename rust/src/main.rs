@@ -15,27 +15,6 @@ use serde_json::Value;
 #[macro_use]
 extern crate rocket;
 
-#[rocket::main]
-async fn main() {
-    let api_key = fs::read_to_string("api.key").unwrap();
-
-    let figment = rocket::Config::figment()
-        .merge(("port", 8080))
-        .merge(("address", "0.0.0.0"));
-
-    if let Err(e) = rocket::custom(figment)
-        .attach(Template::fairing())
-        // .attach(config)
-        .mount("/", routes![handler])
-        .manage(api_key)
-        // .manage(bucket_info)
-        .launch()
-        .await
-    {
-        println!("Did not run. Error: {:?}", e)
-    }
-}
-
 const NAURT_URL: &'static str = "https://api.naurt.net/final-destination/v1";
 
 #[derive(Serialize)]
@@ -83,7 +62,6 @@ struct Feature {
 
 #[derive(Deserialize)]
 struct Coordinates {
-    // #[serde(flatten)]
     pub coordinates: CoordinatesWrapper,
     #[serde(rename(deserialize = "type"))]
     pub type_val: String,
@@ -100,6 +78,25 @@ enum CoordinatesWrapper {
 struct Properties {
     pub naurt_type: String,
     pub contributors: Option<Vec<String>>,
+}
+
+#[rocket::main]
+async fn main() {
+    let api_key = fs::read_to_string("api.key").unwrap();
+
+    let figment = rocket::Config::figment()
+        .merge(("port", 8080))
+        .merge(("address", "0.0.0.0"));
+
+    if let Err(e) = rocket::custom(figment)
+        .attach(Template::fairing())
+        .mount("/", routes![handler])
+        .manage(api_key)
+        .launch()
+        .await
+    {
+        println!("Did not run. Error: {:?}", e)
+    }
 }
 
 #[get("/?<address>&<latitude>&<longitude>&<additional_matches>")]
@@ -137,8 +134,6 @@ async fn handler(
         Ok(x) => x,
         Err(y) => return Err(RawJson(format!("\"Body Error\":\"{}\"", y))),
     };
-
-    println!("{}", json_text);
 
     let naurt_response = match serde_json::from_str::<NaurtResponse>(&json_text) {
         Ok(x) => x,
