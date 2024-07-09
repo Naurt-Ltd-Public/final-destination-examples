@@ -49,7 +49,6 @@ struct NaurtGeojson {
     pub features: Vec<Feature>,
     #[serde(rename(deserialize = "type"))]
     pub type_val: String,
-    pub properties: Value,
 }
 
 #[derive(Deserialize)]
@@ -125,19 +124,19 @@ async fn handler(
 
     let reply = match response {
         Ok(x) => x,
-        Err(y) => return Err(RawJson(format!("\"Request Error\":\"{}\"", y))),
+        Err(y) => return Err(RawJson(format!("{{\"Request Error\":\"{}\"}}", y))),
     };
 
     let body = reply.text().await;
 
     let json_text = match body {
         Ok(x) => x,
-        Err(y) => return Err(RawJson(format!("\"Body Error\":\"{}\"", y))),
+        Err(y) => return Err(RawJson(format!("{{\"Body Error\":\"{}\"}}", y))),
     };
 
     let naurt_response = match serde_json::from_str::<NaurtResponse>(&json_text) {
         Ok(x) => x,
-        Err(y) => return Err(RawJson(format!("\"Json Error\":\"{}\"", y))),
+        Err(y) => return Err(RawJson(format!("{{\"Json Error\":\"{}\"}}", y))),
     };
 
     let plotly = extract_naurt(&naurt_response);
