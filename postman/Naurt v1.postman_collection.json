@@ -1,0 +1,1001 @@
+{
+	"info": {
+		"_postman_id": "d48519fc-966a-449a-8f2a-f7e0b02a8dc3",
+		"name": "Naurt v1",
+		"description": "This is a Postman collection for the Naurt API endpoints. Please refer to the main [Naurt API documentation](https://docs.naurt.com/) for more details.\n\n### Quick install\n\nGo to the [Collection](https://www.postman.com/team-naurt/workspace/naurt-apis/collection/36617726-d48519fc-966a-449a-8f2a-f7e0b02a8dc3) and click `Run in Postman`.\n\nAll requests have detailed examples with them along with the them, which can help in understand the usage better.\n\n### Manual install\n\nYou can also download this Collection from GitHub repo here: [Github](https://github.com/Naurt-Ltd-Public/final-destination-examples)\n\n## Environment\n\nThis Collection includes a pre-configured Environment. The Pre-requisite script in the Final Destination folder will set the final destination url for all requests. User may have to run a request twice for the very first time to get the variable set. Subsequently it will be takken automatically.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36549249",
+		"_collection_link": "https://www.postman.com/team-naurt/workspace/naurt-apis/collection/36617726-d48519fc-966a-449a-8f2a-f7e0b02a8dc3?action=share&source=collection_link&creator=36549249"
+	},
+	"item": [
+		{
+			"name": "Final Destination",
+			"item": [
+				{
+					"name": "Geocoding API",
+					"item": [
+						{
+							"name": "Search with address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"address_string\": \"Tower of London\",\r\n    \"country\": \"UK\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{final_destination}}",
+									"host": [
+										"{{final_destination}}"
+									]
+								},
+								"description": "Geocoding is the process of encoding an address into a latitude & longitude coordinate. With Naurt, this takes on a slightly different form. Instead of responding with a single coordinate, Naurt will respond with a [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) containing the building's entrances, parking zones, and outline.\n\n## [Request](https://docs.naurt.com/final-destination/geocode#request)\n\nNaurt data can be searched via a `POST` request to the **final-destination endpoint**. Again, data should be provided as a JSON in the body of the request and not in the URL.\n\n``` json\n{\n  \"address_string\": Optional<String>, \n  \"country\": Optional<String>,\n  \"latitude\": Optional<Float>,\n  \"longitude\": Optional<Float>,\n  \"distance_filter\": Optional<Float>,\n  \"additional_matches\": Optional<Bool>,\n}\n\n ```"
+							},
+							"response": [
+								{
+									"name": "Get door and parking details for search by address",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"address_string\": \"31, Rugby Road, Brighton, East Sussex, England, United Kingdom, BN1 6EB\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "971"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 27 Jun 2024 12:51:08 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "1d245a80-0d5b-41ee-a200-1d6831b72876"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aBv5bEHFLPEEO4Q="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667d603c-58ebf71a491eb321122d8334;Parent=3c37b239e1306c0d;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 649b4de6ebe50fb3c542f3d95c8ed8ba.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "tCsdWJMu5sv0HdGG1HTO8HWfcxplLWSVi9jCyQdmN1QqFPzOEoB6ew=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"best_match\": {\n        \"address\": \"31, Rugby Road, Brighton, East Sussex, England, United Kingdom, BN1 6EB\",\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.137369,\n                                50.839063\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.137411,\n                                    50.839203\n                                ],\n                                [\n                                    -0.13734,\n                                    50.839203\n                                ],\n                                [\n                                    -0.137339,\n                                    50.839191\n                                ],\n                                [\n                                    -0.137327,\n                                    50.839191\n                                ],\n                                [\n                                    -0.137321,\n                                    50.839111\n                                ],\n                                [\n                                    -0.13731,\n                                    50.839111\n                                ],\n                                [\n                                    -0.137307,\n                                    50.839066\n                                ],\n                                [\n                                    -0.137401,\n                                    50.839062\n                                ],\n                                [\n                                    -0.137411,\n                                    50.839203\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.137257,\n                                    50.839\n                                ],\n                                [\n                                    -0.137255,\n                                    50.838963\n                                ],\n                                [\n                                    -0.13747,\n                                    50.838958\n                                ],\n                                [\n                                    -0.137472,\n                                    50.838994\n                                ],\n                                [\n                                    -0.137257,\n                                    50.839\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 7.35\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"71f4fd4b-caad-b2e6-a1b1-cb1f565dbbcb\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								},
+								{
+									"name": "Get door and parking details addrress with country",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"address_string\": \"Tower of London\",\r\n    \"country\": \"UK\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1487"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 27 Jun 2024 12:55:00 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "085222e5-becc-4f67-a423-f6835a6e100e"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aBwdxFYErPEECyw="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667d6124-64f7f9b0672e0fe032745130;Parent=15f807ae4123e7cf;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 c37f72766931ae9c3f146ffa54018d1c.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "ElSGvb-WwY8BE3bB15-zjMZ04lN60ytjrCGtNe-k3t9LEPfidxTDbA=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"best_match\": {\n        \"address\": \"Byward Tower, The Tower Of London, Tower Hill, London, Greater London, England, United Kingdom, EC3N 4AB\",\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.077962,\n                                51.50782\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.077907,\n                                    51.507896\n                                ],\n                                [\n                                    -0.077934,\n                                    51.5079\n                                ],\n                                [\n                                    -0.077961,\n                                    51.507896\n                                ],\n                                [\n                                    -0.077979,\n                                    51.507881\n                                ],\n                                [\n                                    -0.077983,\n                                    51.507866\n                                ],\n                                [\n                                    -0.077974,\n                                    51.507847\n                                ],\n                                [\n                                    -0.077952,\n                                    51.507835\n                                ],\n                                [\n                                    -0.077962,\n                                    51.50782\n                                ],\n                                [\n                                    -0.077975,\n                                    51.507801\n                                ],\n                                [\n                                    -0.078003,\n                                    51.507801\n                                ],\n                                [\n                                    -0.078029,\n                                    51.507797\n                                ],\n                                [\n                                    -0.078047,\n                                    51.507782\n                                ],\n                                [\n                                    -0.078052,\n                                    51.507767\n                                ],\n                                [\n                                    -0.078042,\n                                    51.507751\n                                ],\n                                [\n                                    -0.078021,\n                                    51.50774\n                                ],\n                                [\n                                    -0.077993,\n                                    51.507736\n                                ],\n                                [\n                                    -0.077967,\n                                    51.50774\n                                ],\n                                [\n                                    -0.077949,\n                                    51.507755\n                                ],\n                                [\n                                    -0.077903,\n                                    51.507744\n                                ],\n                                [\n                                    -0.07792,\n                                    51.507713\n                                ],\n                                [\n                                    -0.077899,\n                                    51.507675\n                                ],\n                                [\n                                    -0.077839,\n                                    51.507694\n                                ],\n                                [\n                                    -0.077822,\n                                    51.507725\n                                ],\n                                [\n                                    -0.077833,\n                                    51.507729\n                                ],\n                                [\n                                    -0.077805,\n                                    51.507771\n                                ],\n                                [\n                                    -0.077863,\n                                    51.507786\n                                ],\n                                [\n                                    -0.077856,\n                                    51.507797\n                                ],\n                                [\n                                    -0.077813,\n                                    51.507866\n                                ],\n                                [\n                                    -0.077876,\n                                    51.507881\n                                ],\n                                [\n                                    -0.07789,\n                                    51.507889\n                                ],\n                                [\n                                    -0.077907,\n                                    51.507896\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.077851,\n                                    51.507801\n                                ],\n                                [\n                                    -0.077878,\n                                    51.507769\n                                ],\n                                [\n                                    -0.078073,\n                                    51.50783\n                                ],\n                                [\n                                    -0.078046,\n                                    51.507863\n                                ],\n                                [\n                                    -0.077851,\n                                    51.507801\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 0\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"8733fb0c-083f-868a-5ce6-023562ced763\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								},
+								{
+									"name": "Get additional door and parking spots",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"address_string\": \"56, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\r\n    \"additional_matches\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4640"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 27 Jun 2024 13:01:08 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "71b5ecd8-9e7c-4ef7-9a9e-89cd2c73a8ef"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aBxXGG7pLPEEv9g="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667d6293-1a9f324b726709b12ce34701;Parent=1e49fa3cb47d3449;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 46aba6b15045c2b494b2c260627fbfda.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "aINemRssvi1AlLl0sRO-nUdUFNIPp8jhwSZJVGblg5t5hIxAErMe0g=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"additional_matches\": [\n        {\n            \"address\": \"58, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.134677,\n                                    50.838117\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.134629,\n                                        50.83812\n                                    ],\n                                    [\n                                        -0.134621,\n                                        50.838039\n                                    ],\n                                    [\n                                        -0.134651,\n                                        50.838036\n                                    ],\n                                    [\n                                        -0.134638,\n                                        50.837952\n                                    ],\n                                    [\n                                        -0.134698,\n                                        50.837948\n                                    ],\n                                    [\n                                        -0.134701,\n                                        50.837975\n                                    ],\n                                    [\n                                        -0.134717,\n                                        50.838116\n                                    ],\n                                    [\n                                        -0.134629,\n                                        50.83812\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.13479,\n                                        50.838171\n                                    ],\n                                    [\n                                        -0.134794,\n                                        50.838207\n                                    ],\n                                    [\n                                        -0.134579,\n                                        50.838215\n                                    ],\n                                    [\n                                        -0.134575,\n                                        50.838179\n                                    ],\n                                    [\n                                        -0.13479,\n                                        50.838171\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 6.46\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"d838f619-f57c-82b5-ec20-a1448baebc1a\"\n        },\n        {\n            \"address\": \"64, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.134364,\n                                    50.838129\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.13432,\n                                        50.838131\n                                    ],\n                                    [\n                                        -0.13431,\n                                        50.83799\n                                    ],\n                                    [\n                                        -0.134365,\n                                        50.837986\n                                    ],\n                                    [\n                                        -0.134371,\n                                        50.838051\n                                    ],\n                                    [\n                                        -0.134402,\n                                        50.838047\n                                    ],\n                                    [\n                                        -0.13441,\n                                        50.838127\n                                    ],\n                                    [\n                                        -0.13432,\n                                        50.838131\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.134477,\n                                        50.838183\n                                    ],\n                                    [\n                                        -0.134481,\n                                        50.838219\n                                    ],\n                                    [\n                                        -0.134266,\n                                        50.838227\n                                    ],\n                                    [\n                                        -0.134262,\n                                        50.838191\n                                    ],\n                                    [\n                                        -0.134477,\n                                        50.838183\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 6.46\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"4090b57f-9adc-d19b-8fc3-42c0edb6a0e7\"\n        },\n        {\n            \"address\": \"38, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.137182,\n                                    50.838012\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.13731,\n                                        50.838005\n                                    ],\n                                    [\n                                        -0.137158,\n                                        50.838013\n                                    ],\n                                    [\n                                        -0.137157,\n                                        50.837997\n                                    ],\n                                    [\n                                        -0.137012,\n                                        50.838001\n                                    ],\n                                    [\n                                        -0.137003,\n                                        50.837875\n                                    ],\n                                    [\n                                        -0.137149,\n                                        50.837872\n                                    ],\n                                    [\n                                        -0.137148,\n                                        50.837856\n                                    ],\n                                    [\n                                        -0.137299,\n                                        50.837852\n                                    ],\n                                    [\n                                        -0.13731,\n                                        50.838005\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.137295,\n                                        50.83809\n                                    ],\n                                    [\n                                        -0.137297,\n                                        50.838126\n                                    ],\n                                    [\n                                        -0.137082,\n                                        50.838132\n                                    ],\n                                    [\n                                        -0.13708,\n                                        50.838096\n                                    ],\n                                    [\n                                        -0.137295,\n                                        50.83809\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 9.02\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"130aa74b-5812-160e-7418-2fd7a238f39f\"\n        },\n        {\n            \"address\": \"54, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.134891,\n                                    50.838109\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.134833,\n                                        50.838112\n                                    ],\n                                    [\n                                        -0.134824,\n                                        50.838032\n                                    ],\n                                    [\n                                        -0.134853,\n                                        50.838032\n                                    ],\n                                    [\n                                        -0.134849,\n                                        50.837971\n                                    ],\n                                    [\n                                        -0.134908,\n                                        50.837967\n                                    ],\n                                    [\n                                        -0.13492,\n                                        50.838108\n                                    ],\n                                    [\n                                        -0.134833,\n                                        50.838112\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.135003,\n                                        50.838163\n                                    ],\n                                    [\n                                        -0.135007,\n                                        50.838199\n                                    ],\n                                    [\n                                        -0.134792,\n                                        50.838207\n                                    ],\n                                    [\n                                        -0.134789,\n                                        50.838171\n                                    ],\n                                    [\n                                        -0.135003,\n                                        50.838163\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 6.46\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"1a16f4cf-6980-5377-6e05-0e5e90ab4992\"\n        }\n    ],\n    \"best_match\": {\n        \"address\": \"56, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.134762,\n                                50.838113\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.134717,\n                                    50.838116\n                                ],\n                                [\n                                    -0.134701,\n                                    50.837975\n                                ],\n                                [\n                                    -0.134755,\n                                    50.837971\n                                ],\n                                [\n                                    -0.134761,\n                                    50.838036\n                                ],\n                                [\n                                    -0.134786,\n                                    50.838036\n                                ],\n                                [\n                                    -0.134795,\n                                    50.838112\n                                ],\n                                [\n                                    -0.134717,\n                                    50.838116\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.134875,\n                                    50.838168\n                                ],\n                                [\n                                    -0.134879,\n                                    50.838204\n                                ],\n                                [\n                                    -0.134664,\n                                    50.838212\n                                ],\n                                [\n                                    -0.13466,\n                                    50.838176\n                                ],\n                                [\n                                    -0.134875,\n                                    50.838168\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 6.57\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"2c00d182-b5cd-d8e2-6652-f3fee3739587\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								},
+								{
+									"name": "Get door and parking details with address and geolocation",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"address_string\": \"56, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\r\n    \"latitude\": 50.83810673635065,\r\n    \"longitude\": -0.13488950427466762,\r\n    \"additional_matches\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4725"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 27 Jun 2024 13:08:56 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "456862b8-7d70-4f71-af04-232a2e4088a9"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aBygYFtcLPEEWjw="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667d6468-7549e2f747a70892396c4b06;Parent=7c76442606645e6d;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 c307613fe3146dad6950808dc74f82f6.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "_W3-R53zhQ23-dU7YB9DVsTDRHoJNC-w7sjD4wUQVzvVe_sRVaTdTA=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"additional_matches\": [\n        {\n            \"address\": \"58, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n            \"distance\": 16.29,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.134677,\n                                    50.838117\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.134629,\n                                        50.83812\n                                    ],\n                                    [\n                                        -0.134621,\n                                        50.838039\n                                    ],\n                                    [\n                                        -0.134651,\n                                        50.838036\n                                    ],\n                                    [\n                                        -0.134638,\n                                        50.837952\n                                    ],\n                                    [\n                                        -0.134698,\n                                        50.837948\n                                    ],\n                                    [\n                                        -0.134701,\n                                        50.837975\n                                    ],\n                                    [\n                                        -0.134717,\n                                        50.838116\n                                    ],\n                                    [\n                                        -0.134629,\n                                        50.83812\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.13479,\n                                        50.838171\n                                    ],\n                                    [\n                                        -0.134794,\n                                        50.838207\n                                    ],\n                                    [\n                                        -0.134579,\n                                        50.838215\n                                    ],\n                                    [\n                                        -0.134575,\n                                        50.838179\n                                    ],\n                                    [\n                                        -0.13479,\n                                        50.838171\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 6.46\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"d838f619-f57c-82b5-ec20-a1448baebc1a\"\n        },\n        {\n            \"address\": \"64, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n            \"distance\": 37.59,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.134364,\n                                    50.838129\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.13432,\n                                        50.838131\n                                    ],\n                                    [\n                                        -0.13431,\n                                        50.83799\n                                    ],\n                                    [\n                                        -0.134365,\n                                        50.837986\n                                    ],\n                                    [\n                                        -0.134371,\n                                        50.838051\n                                    ],\n                                    [\n                                        -0.134402,\n                                        50.838047\n                                    ],\n                                    [\n                                        -0.13441,\n                                        50.838127\n                                    ],\n                                    [\n                                        -0.13432,\n                                        50.838131\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.134477,\n                                        50.838183\n                                    ],\n                                    [\n                                        -0.134481,\n                                        50.838219\n                                    ],\n                                    [\n                                        -0.134266,\n                                        50.838227\n                                    ],\n                                    [\n                                        -0.134262,\n                                        50.838191\n                                    ],\n                                    [\n                                        -0.134477,\n                                        50.838183\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 6.46\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"4090b57f-9adc-d19b-8fc3-42c0edb6a0e7\"\n        },\n        {\n            \"address\": \"38, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n            \"distance\": 162.19,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.137182,\n                                    50.838012\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.13731,\n                                        50.838005\n                                    ],\n                                    [\n                                        -0.137158,\n                                        50.838013\n                                    ],\n                                    [\n                                        -0.137157,\n                                        50.837997\n                                    ],\n                                    [\n                                        -0.137012,\n                                        50.838001\n                                    ],\n                                    [\n                                        -0.137003,\n                                        50.837875\n                                    ],\n                                    [\n                                        -0.137149,\n                                        50.837872\n                                    ],\n                                    [\n                                        -0.137148,\n                                        50.837856\n                                    ],\n                                    [\n                                        -0.137299,\n                                        50.837852\n                                    ],\n                                    [\n                                        -0.13731,\n                                        50.838005\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.137295,\n                                        50.83809\n                                    ],\n                                    [\n                                        -0.137297,\n                                        50.838126\n                                    ],\n                                    [\n                                        -0.137082,\n                                        50.838132\n                                    ],\n                                    [\n                                        -0.13708,\n                                        50.838096\n                                    ],\n                                    [\n                                        -0.137295,\n                                        50.83809\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 9.02\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"130aa74b-5812-160e-7418-2fd7a238f39f\"\n        },\n        {\n            \"address\": \"54, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n            \"distance\": 6.21,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.134891,\n                                    50.838109\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.134833,\n                                        50.838112\n                                    ],\n                                    [\n                                        -0.134824,\n                                        50.838032\n                                    ],\n                                    [\n                                        -0.134853,\n                                        50.838032\n                                    ],\n                                    [\n                                        -0.134849,\n                                        50.837971\n                                    ],\n                                    [\n                                        -0.134908,\n                                        50.837967\n                                    ],\n                                    [\n                                        -0.13492,\n                                        50.838108\n                                    ],\n                                    [\n                                        -0.134833,\n                                        50.838112\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.135003,\n                                        50.838163\n                                    ],\n                                    [\n                                        -0.135007,\n                                        50.838199\n                                    ],\n                                    [\n                                        -0.134792,\n                                        50.838207\n                                    ],\n                                    [\n                                        -0.134789,\n                                        50.838171\n                                    ],\n                                    [\n                                        -0.135003,\n                                        50.838163\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 6.46\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"1a16f4cf-6980-5377-6e05-0e5e90ab4992\"\n        }\n    ],\n    \"best_match\": {\n        \"address\": \"56, Florence Road, Brighton, East Sussex, England, United Kingdom, BN1 6DJ\",\n        \"distance\": 10.79,\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.134762,\n                                50.838113\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.134717,\n                                    50.838116\n                                ],\n                                [\n                                    -0.134701,\n                                    50.837975\n                                ],\n                                [\n                                    -0.134755,\n                                    50.837971\n                                ],\n                                [\n                                    -0.134761,\n                                    50.838036\n                                ],\n                                [\n                                    -0.134786,\n                                    50.838036\n                                ],\n                                [\n                                    -0.134795,\n                                    50.838112\n                                ],\n                                [\n                                    -0.134717,\n                                    50.838116\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.134875,\n                                    50.838168\n                                ],\n                                [\n                                    -0.134879,\n                                    50.838204\n                                ],\n                                [\n                                    -0.134664,\n                                    50.838212\n                                ],\n                                [\n                                    -0.13466,\n                                    50.838176\n                                ],\n                                [\n                                    -0.134875,\n                                    50.838168\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 6.57\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"2c00d182-b5cd-d8e2-6652-f3fee3739587\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								},
+								{
+									"name": "Get door and parking details with distance filter",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"address_string\": \"9, Cornfield Terrace, Eastbourne, East Sussex, BN21 4NN\",\r\n    \"latitude\": 50.765867,\r\n    \"longitude\": 0.28506,\r\n    \"additional_matches\": true,\r\n    \"distance_filter\": 7000,\r\n    \"country\": \"UK\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4918"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 27 Jun 2024 13:45:41 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "0494c547-904f-4429-aa31-903c78bf46bc"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aB345HBsLPEEkmA="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667d6d05-0ad449d93434428c635700f5;Parent=62d99b640bf97bf5;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 6ec872fa8051a500a5a9ab5ec50a79ba.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "s8o_wfoFGeOIpZi3u-R8hREmAxY83U_Ach3xn1Fk7eg6Pd0vcOzgfw=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"additional_matches\": [\n        {\n            \"address\": \"10, Cornfield Terrace, Eastbourne, East Sussex, England, United Kingdom, BN21 4NN\",\n            \"distance\": 52.68,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    0.285136,\n                                    50.765404\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.284957,\n                                        50.765308\n                                    ],\n                                    [\n                                        0.28495,\n                                        50.76535\n                                    ],\n                                    [\n                                        0.285007,\n                                        50.765354\n                                    ],\n                                    [\n                                        0.285004,\n                                        50.765373\n                                    ],\n                                    [\n                                        0.284932,\n                                        50.765369\n                                    ],\n                                    [\n                                        0.284926,\n                                        50.765404\n                                    ],\n                                    [\n                                        0.285134,\n                                        50.765415\n                                    ],\n                                    [\n                                        0.28515,\n                                        50.76532\n                                    ],\n                                    [\n                                        0.284957,\n                                        50.765308\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.285197,\n                                        50.765477\n                                    ],\n                                    [\n                                        0.285254,\n                                        50.765482\n                                    ],\n                                    [\n                                        0.285282,\n                                        50.765347\n                                    ],\n                                    [\n                                        0.285225,\n                                        50.765343\n                                    ],\n                                    [\n                                        0.285197,\n                                        50.765477\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 5.33\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"01d8aa08-6d8d-5b7a-43c0-98389e330b40\"\n        },\n        {\n            \"address\": \"1a, Cornfield Terrace, Eastbourne, East Sussex, England, United Kingdom, BN21 4NN\",\n            \"distance\": 102.68,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    0.285211,\n                                    50.76495\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.285215,\n                                        50.764923\n                                    ],\n                                    [\n                                        0.285154,\n                                        50.764919\n                                    ],\n                                    [\n                                        0.285156,\n                                        50.764912\n                                    ],\n                                    [\n                                        0.285037,\n                                        50.764904\n                                    ],\n                                    [\n                                        0.28504,\n                                        50.764885\n                                    ],\n                                    [\n                                        0.284984,\n                                        50.764885\n                                    ],\n                                    [\n                                        0.284974,\n                                        50.764946\n                                    ],\n                                    [\n                                        0.285082,\n                                        50.764954\n                                    ],\n                                    [\n                                        0.285071,\n                                        50.765022\n                                    ],\n                                    [\n                                        0.285198,\n                                        50.76503\n                                    ],\n                                    [\n                                        0.285215,\n                                        50.764923\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.285262,\n                                        50.76502\n                                    ],\n                                    [\n                                        0.285319,\n                                        50.765023\n                                    ],\n                                    [\n                                        0.285334,\n                                        50.764887\n                                    ],\n                                    [\n                                        0.285277,\n                                        50.764885\n                                    ],\n                                    [\n                                        0.285262,\n                                        50.76502\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 4.14\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"5b5e713e-46fd-bef1-ebb1-f705829ac72b\"\n        },\n        {\n            \"address\": \"6, Cornfield Terrace, Eastbourne, East Sussex, England, United Kingdom, BN21 4NN\",\n            \"distance\": 72.65,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    0.285166,\n                                    50.765222\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.284916,\n                                        50.765205\n                                    ],\n                                    [\n                                        0.284911,\n                                        50.765236\n                                    ],\n                                    [\n                                        0.285031,\n                                        50.765244\n                                    ],\n                                    [\n                                        0.285024,\n                                        50.765285\n                                    ],\n                                    [\n                                        0.284962,\n                                        50.765278\n                                    ],\n                                    [\n                                        0.284957,\n                                        50.765308\n                                    ],\n                                    [\n                                        0.28515,\n                                        50.76532\n                                    ],\n                                    [\n                                        0.285166,\n                                        50.765221\n                                    ],\n                                    [\n                                        0.284916,\n                                        50.765205\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.285232,\n                                        50.765293\n                                    ],\n                                    [\n                                        0.285289,\n                                        50.765296\n                                    ],\n                                    [\n                                        0.285304,\n                                        50.76516\n                                    ],\n                                    [\n                                        0.285246,\n                                        50.765158\n                                    ],\n                                    [\n                                        0.285232,\n                                        50.765293\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 5.16\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"1c7bb95a-97af-f616-c39c-ba8a77ba3105\"\n        },\n        {\n            \"address\": \"2, Cornfield Terrace, Eastbourne, East Sussex, England, United Kingdom, BN21 4NN\",\n            \"distance\": 96.81,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    0.285202,\n                                    50.765002\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.285215,\n                                        50.764923\n                                    ],\n                                    [\n                                        0.285154,\n                                        50.764919\n                                    ],\n                                    [\n                                        0.285156,\n                                        50.764912\n                                    ],\n                                    [\n                                        0.285037,\n                                        50.764904\n                                    ],\n                                    [\n                                        0.28504,\n                                        50.764885\n                                    ],\n                                    [\n                                        0.284984,\n                                        50.764885\n                                    ],\n                                    [\n                                        0.284974,\n                                        50.764946\n                                    ],\n                                    [\n                                        0.285082,\n                                        50.764954\n                                    ],\n                                    [\n                                        0.285071,\n                                        50.765022\n                                    ],\n                                    [\n                                        0.285198,\n                                        50.76503\n                                    ],\n                                    [\n                                        0.285215,\n                                        50.764923\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.285256,\n                                        50.765073\n                                    ],\n                                    [\n                                        0.285313,\n                                        50.765075\n                                    ],\n                                    [\n                                        0.285328,\n                                        50.76494\n                                    ],\n                                    [\n                                        0.285271,\n                                        50.764937\n                                    ],\n                                    [\n                                        0.285256,\n                                        50.765073\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 4.35\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"d48844ba-ce79-8077-9d0d-88e96d047788\"\n        }\n    ],\n    \"best_match\": {\n        \"address\": \"9, Cornfield Terrace, Eastbourne, East Sussex, England, United Kingdom, BN21 4NN\",\n        \"distance\": 58.63,\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                0.285145,\n                                50.765352\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    0.284957,\n                                    50.765308\n                                ],\n                                [\n                                    0.28495,\n                                    50.76535\n                                ],\n                                [\n                                    0.285007,\n                                    50.765354\n                                ],\n                                [\n                                    0.285004,\n                                    50.765373\n                                ],\n                                [\n                                    0.284932,\n                                    50.765369\n                                ],\n                                [\n                                    0.284926,\n                                    50.765404\n                                ],\n                                [\n                                    0.285134,\n                                    50.765415\n                                ],\n                                [\n                                    0.28515,\n                                    50.76532\n                                ],\n                                [\n                                    0.284957,\n                                    50.765308\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    0.285208,\n                                    50.765426\n                                ],\n                                [\n                                    0.285265,\n                                    50.765431\n                                ],\n                                [\n                                    0.285293,\n                                    50.765296\n                                ],\n                                [\n                                    0.285236,\n                                    50.765291\n                                ],\n                                [\n                                    0.285208,\n                                    50.765426\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 5.48\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"842eb536-b263-f9c3-0862-ed0b3b1e3a82\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								}
+							]
+						}
+					],
+					"description": "Geocoding is the process of encoding an address into a latitude & longitude coordinate. With Naurt, this takes on a slightly different form. Instead of responding with a single coordinate, Naurt will respond with a [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) containing the building's entrances, parking zones, and outline.\n\n## [Request](https://docs.naurt.com/final-destination/geocode#request)\n\nNaurt data can be searched via a `POST` request to the **final-destination endpoint**. Again, data should be provided as a JSON in the body of the request and not in the URL.\n\n``` json\n{\n  \"address_string\": Optional<String>, \n  \"country\": Optional<String>,\n  \"latitude\": Optional<Float>,\n  \"longitude\": Optional<Float>,\n  \"distance_filter\": Optional<Float>,\n  \"additional_matches\": Optional<Bool>,\n}\n\n ```\n\n### [Parameters](https://docs.naurt.com/final-destination/geocode#parameters)\n\n| Parameter | Type | Optional | Default | Description |\n| --- | --- | --- | --- | --- |\n| **latitude** | float | Yes | None | A valid latitude in [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System#WGS_84) degrees. Range: -90 <= lat <= 90. |\n| **longitude** | float | Yes | None | A valid longitude in [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System#WGS_84) degrees. Range: -180 <= lon < 180. |\n| **distance_filter** | float | Yes | 5000 | A distance in metres (larger than 0) within which you wish to search for POIs. When a filter is applied a latitude and longitude must also be provided. Maximum value of 25000 metres. |\n| **address_string** | String | Yes | None | An address string. Good formatting, spelling, and completeness will offer the best search results. |\n| **additional_matches** | Boolean | Yes | False | Provides up to 4 results beyond what Naurt classifies as the `best_match`. |\n| **country** | String | Yes | None | Optional but strongly suggested two digit country code which helps with performance. |\n\n## [Response](https://docs.naurt.com/final-destination/geocode#response)\n\n### [Success](https://docs.naurt.com/final-destination/geocode#success)\n\nA `200` response code indicates a successful response with the format as follows.\n\n``` json\n{\n  \"best_match\": Optional<DESTINATION RESPONSE FORMAT>,\n  \"additional_matches\": Optional<List<DESTINATION RESPONSE FORMAT>>,\n  \"version\": Optional<String>\n}\n\n ```\n\nNaurt will identify the single best match for you. You will only have an `additional_matches` field if you set `additional_matches` to true in the request.\n\nThe `DESTINATION RESPONSE FORMAT` is\n\n``` json\n{\n  \"id\": String,\n  \"address\": String,\n  \"geojson\": GeoJSON,\n  \"distance\": Optional<float>\n}\n\n ```\n\n- Note that the `address` field is the normalised address and may not match the address you searched with.\n    \n- Distance will only be present if you search with a `latitude` and `longitude` and will be the distance of the destination from that position in metres.\n    \n\n### [Failure](https://docs.naurt.com/final-destination/geocode#failure)\n\nA response code other than `200` indicates a failure to retrieve the requested destination.\n\n401 Unauthorized\n\n``` json\n{\"error\":\"Please ensure the request contains a valid API key.\"}\n\n ```\n\nIf there are no destinations available which match the search term, the response JSON will not contain any results, but instead a \"naurt_info\" message.\n\n``` json\n{\"naurt_info\":\"Successful request. No destinations match search conditions.\"}\n\n ```"
+				},
+				{
+					"name": "Reverse Geocoding",
+					"item": [
+						{
+							"name": "Search with lat/lon",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"latitude\": 50.835551,\r\n    \"longitude\": -0.127613\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{final_destination}}",
+									"host": [
+										"{{final_destination}}"
+									]
+								},
+								"description": "Naurt data can be reverse-searched via a `POST` request to the **final-destination endpoint**. Again, data should be provided as a JSON in the body of the request and not in the URL.\n\n``` json\nPOST  https://api.naurt.net/final-destination/v1\nContent-Type: application/json\nAuthorization: <API_KEY_HERE>\n{\n  \"latitude\": Optional<Float>,\n  \"longitude\": Optional<Float>,\n  \"country\": Optional<String>,\n  \"distance_filter\": Optional<Float>,\n  \"additional_matches\": Optional<Bool>,\n}\n\n ```"
+							},
+							"response": [
+								{
+									"name": "Get door and parking details with lat/lon",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"latitude\": 50.835551,\r\n    \"longitude\": -0.127613\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "913"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 28 Jun 2024 06:52:03 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "440dd22b-8801-47d9-92cd-037f62adfa61"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aEOO7EqvLPEEGhg="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667e5d92-4182b3a668c820e43c9ffa3b;Parent=64375524966ea2cb;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 40adc3dc2f5b304254d63ab3859fedd2.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "QnLyopn-CAGmc272-JP_jhRkkLoGEpfhCZ6Qqma0Z3Tnz__2ulvAOw=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"best_match\": {\n        \"address\": \"99, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n        \"distance\": 9.31,\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.127554,\n                                50.835626\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.127443,\n                                    50.835583\n                                ],\n                                [\n                                    -0.127503,\n                                    50.835552\n                                ],\n                                [\n                                    -0.127584,\n                                    50.835613\n                                ],\n                                [\n                                    -0.127524,\n                                    50.83564\n                                ],\n                                [\n                                    -0.127443,\n                                    50.835583\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.127652,\n                                    50.835595\n                                ],\n                                [\n                                    -0.127689,\n                                    50.835623\n                                ],\n                                [\n                                    -0.127522,\n                                    50.835709\n                                ],\n                                [\n                                    -0.127485,\n                                    50.835681\n                                ],\n                                [\n                                    -0.127652,\n                                    50.835595\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 1.68\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"fc473f4b-310a-7b2e-9b46-faa091fa4fa5\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								},
+								{
+									"name": "Get door and parking details with lat/lon and country",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"latitude\": 50.835551,\r\n    \"longitude\": -0.127613,\r\n    \"country\": \"UK\"\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "913"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 28 Jun 2024 06:54:59 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "303048c1-a05c-4c41-b4f4-dce0936ca4c3"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aEOqpGULrPEET_g="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667e5e43-396db4f31c779f7130f2537b;Parent=3f8f6ec15d734586;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 aa0ac259128059e949248e63a3b6767e.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "ulvnjk3r1A6QQaeXQA8lESbpMSSWpdVtQF9qFmY10z6oEUN5A9udnA=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"best_match\": {\n        \"address\": \"99, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n        \"distance\": 9.31,\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.127554,\n                                50.835626\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.127443,\n                                    50.835583\n                                ],\n                                [\n                                    -0.127503,\n                                    50.835552\n                                ],\n                                [\n                                    -0.127584,\n                                    50.835613\n                                ],\n                                [\n                                    -0.127524,\n                                    50.83564\n                                ],\n                                [\n                                    -0.127443,\n                                    50.835583\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.127652,\n                                    50.835595\n                                ],\n                                [\n                                    -0.127689,\n                                    50.835623\n                                ],\n                                [\n                                    -0.127522,\n                                    50.835709\n                                ],\n                                [\n                                    -0.127485,\n                                    50.835681\n                                ],\n                                [\n                                    -0.127652,\n                                    50.835595\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 1.68\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"fc473f4b-310a-7b2e-9b46-faa091fa4fa5\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								},
+								{
+									"name": "Get additional door and parking details with lat/lon",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"latitude\": 50.835551,\r\n    \"longitude\": -0.127613,\r\n    \"additional_matches\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4530"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 28 Jun 2024 06:55:46 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "60497511-b360-4245-9ea4-8147f27aece5"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aEOx3EhIrPEEMtA="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667e5e72-5f240a720c671c17090c7e61;Parent=77148411102c5ae2;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 a20436c6d109fe9002d093f519ad4398.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "cWJ8APEHj8ilXeFfb96UMf3ff3uqd5e4E4gmcIJ7RU1uvEOkkyLPKA=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"additional_matches\": [\n        {\n            \"address\": \"Basement Flat, 99, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n            \"distance\": 9.31,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.127554,\n                                    50.835626\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127443,\n                                        50.835583\n                                    ],\n                                    [\n                                        -0.127503,\n                                        50.835552\n                                    ],\n                                    [\n                                        -0.127584,\n                                        50.835613\n                                    ],\n                                    [\n                                        -0.127524,\n                                        50.83564\n                                    ],\n                                    [\n                                        -0.127443,\n                                        50.835583\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127652,\n                                        50.835595\n                                    ],\n                                    [\n                                        -0.127689,\n                                        50.835623\n                                    ],\n                                    [\n                                        -0.127522,\n                                        50.835709\n                                    ],\n                                    [\n                                        -0.127485,\n                                        50.835681\n                                    ],\n                                    [\n                                        -0.127652,\n                                        50.835595\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 1.68\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"4a041d28-9652-cbd8-0735-b4f00213b9dc\"\n        },\n        {\n            \"address\": \"The Martha Gunn, 100, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n            \"distance\": 11.83,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.127776,\n                                    50.835524\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127597,\n                                        50.835464\n                                    ],\n                                    [\n                                        -0.12773,\n                                        50.8354\n                                    ],\n                                    [\n                                        -0.127757,\n                                        50.835423\n                                    ],\n                                    [\n                                        -0.127775,\n                                        50.835415\n                                    ],\n                                    [\n                                        -0.12786,\n                                        50.835484\n                                    ],\n                                    [\n                                        -0.127709,\n                                        50.835556\n                                    ],\n                                    [\n                                        -0.127597,\n                                        50.835464\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127869,\n                                        50.835489\n                                    ],\n                                    [\n                                        -0.127905,\n                                        50.835518\n                                    ],\n                                    [\n                                        -0.127734,\n                                        50.835601\n                                    ],\n                                    [\n                                        -0.127699,\n                                        50.835572\n                                    ],\n                                    [\n                                        -0.127869,\n                                        50.835489\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 0.92\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"c56dbebb-c7ab-ede2-a7ac-f84e57d1878d\"\n        },\n        {\n            \"address\": \"98a, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n            \"distance\": 13.97,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.127499,\n                                    50.835654\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.12739,\n                                        50.835609\n                                    ],\n                                    [\n                                        -0.127443,\n                                        50.835583\n                                    ],\n                                    [\n                                        -0.127524,\n                                        50.83564\n                                    ],\n                                    [\n                                        -0.127471,\n                                        50.83567\n                                    ],\n                                    [\n                                        -0.12739,\n                                        50.835609\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127597,\n                                        50.835623\n                                    ],\n                                    [\n                                        -0.127634,\n                                        50.835652\n                                    ],\n                                    [\n                                        -0.127467,\n                                        50.835737\n                                    ],\n                                    [\n                                        -0.12743,\n                                        50.835709\n                                    ],\n                                    [\n                                        -0.127597,\n                                        50.835623\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 1.68\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"6051bb0b-22d1-a0e9-0a7c-fbf4c32686a8\"\n        },\n        {\n            \"address\": \"98, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n            \"distance\": 13.97,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.127499,\n                                    50.835654\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.12739,\n                                        50.835609\n                                    ],\n                                    [\n                                        -0.127443,\n                                        50.835583\n                                    ],\n                                    [\n                                        -0.127524,\n                                        50.83564\n                                    ],\n                                    [\n                                        -0.127471,\n                                        50.83567\n                                    ],\n                                    [\n                                        -0.12739,\n                                        50.835609\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127597,\n                                        50.835623\n                                    ],\n                                    [\n                                        -0.127634,\n                                        50.835652\n                                    ],\n                                    [\n                                        -0.127467,\n                                        50.835737\n                                    ],\n                                    [\n                                        -0.12743,\n                                        50.835709\n                                    ],\n                                    [\n                                        -0.127597,\n                                        50.835623\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 1.68\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"08dcb583-a312-dd6b-df90-05b776db0d9b\"\n        }\n    ],\n    \"best_match\": {\n        \"address\": \"99, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n        \"distance\": 9.31,\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.127554,\n                                50.835626\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.127443,\n                                    50.835583\n                                ],\n                                [\n                                    -0.127503,\n                                    50.835552\n                                ],\n                                [\n                                    -0.127584,\n                                    50.835613\n                                ],\n                                [\n                                    -0.127524,\n                                    50.83564\n                                ],\n                                [\n                                    -0.127443,\n                                    50.835583\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.127652,\n                                    50.835595\n                                ],\n                                [\n                                    -0.127689,\n                                    50.835623\n                                ],\n                                [\n                                    -0.127522,\n                                    50.835709\n                                ],\n                                [\n                                    -0.127485,\n                                    50.835681\n                                ],\n                                [\n                                    -0.127652,\n                                    50.835595\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 1.68\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"fc473f4b-310a-7b2e-9b46-faa091fa4fa5\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								},
+								{
+									"name": "Get door and parking details with lat/lon and address",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"address\":\"Upper Lewes Road, Brighton, England\",\r\n    \"latitude\": 50.835551,\r\n    \"longitude\": -0.127613,\r\n    \"additional_matches\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4530"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 28 Jun 2024 06:57:15 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "6ac18945-98b3-49c5-9eeb-9e3289ee8d93"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aEO_wFeQLPEEsKA="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667e5eca-07ad992d5b2acc3d714f1457;Parent=539a238f8a30f219;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 8ad5a9cbb864898c238f716c1a12623c.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "n1XWYdvnAREg-6hLmvF-mcj-nrcLAlQMDGOBmoWKOruabMvjbtMeWg=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"additional_matches\": [\n        {\n            \"address\": \"Basement Flat, 99, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n            \"distance\": 9.31,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.127554,\n                                    50.835626\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127443,\n                                        50.835583\n                                    ],\n                                    [\n                                        -0.127503,\n                                        50.835552\n                                    ],\n                                    [\n                                        -0.127584,\n                                        50.835613\n                                    ],\n                                    [\n                                        -0.127524,\n                                        50.83564\n                                    ],\n                                    [\n                                        -0.127443,\n                                        50.835583\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127652,\n                                        50.835595\n                                    ],\n                                    [\n                                        -0.127689,\n                                        50.835623\n                                    ],\n                                    [\n                                        -0.127522,\n                                        50.835709\n                                    ],\n                                    [\n                                        -0.127485,\n                                        50.835681\n                                    ],\n                                    [\n                                        -0.127652,\n                                        50.835595\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 1.68\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"4a041d28-9652-cbd8-0735-b4f00213b9dc\"\n        },\n        {\n            \"address\": \"The Martha Gunn, 100, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n            \"distance\": 11.83,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.127776,\n                                    50.835524\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127597,\n                                        50.835464\n                                    ],\n                                    [\n                                        -0.12773,\n                                        50.8354\n                                    ],\n                                    [\n                                        -0.127757,\n                                        50.835423\n                                    ],\n                                    [\n                                        -0.127775,\n                                        50.835415\n                                    ],\n                                    [\n                                        -0.12786,\n                                        50.835484\n                                    ],\n                                    [\n                                        -0.127709,\n                                        50.835556\n                                    ],\n                                    [\n                                        -0.127597,\n                                        50.835464\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127869,\n                                        50.835489\n                                    ],\n                                    [\n                                        -0.127905,\n                                        50.835518\n                                    ],\n                                    [\n                                        -0.127734,\n                                        50.835601\n                                    ],\n                                    [\n                                        -0.127699,\n                                        50.835572\n                                    ],\n                                    [\n                                        -0.127869,\n                                        50.835489\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 0.92\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"c56dbebb-c7ab-ede2-a7ac-f84e57d1878d\"\n        },\n        {\n            \"address\": \"98a, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n            \"distance\": 13.97,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.127499,\n                                    50.835654\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.12739,\n                                        50.835609\n                                    ],\n                                    [\n                                        -0.127443,\n                                        50.835583\n                                    ],\n                                    [\n                                        -0.127524,\n                                        50.83564\n                                    ],\n                                    [\n                                        -0.127471,\n                                        50.83567\n                                    ],\n                                    [\n                                        -0.12739,\n                                        50.835609\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127597,\n                                        50.835623\n                                    ],\n                                    [\n                                        -0.127634,\n                                        50.835652\n                                    ],\n                                    [\n                                        -0.127467,\n                                        50.835737\n                                    ],\n                                    [\n                                        -0.12743,\n                                        50.835709\n                                    ],\n                                    [\n                                        -0.127597,\n                                        50.835623\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 1.68\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"6051bb0b-22d1-a0e9-0a7c-fbf4c32686a8\"\n        },\n        {\n            \"address\": \"98, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n            \"distance\": 13.97,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.127499,\n                                    50.835654\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.12739,\n                                        50.835609\n                                    ],\n                                    [\n                                        -0.127443,\n                                        50.835583\n                                    ],\n                                    [\n                                        -0.127524,\n                                        50.83564\n                                    ],\n                                    [\n                                        -0.127471,\n                                        50.83567\n                                    ],\n                                    [\n                                        -0.12739,\n                                        50.835609\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.127597,\n                                        50.835623\n                                    ],\n                                    [\n                                        -0.127634,\n                                        50.835652\n                                    ],\n                                    [\n                                        -0.127467,\n                                        50.835737\n                                    ],\n                                    [\n                                        -0.12743,\n                                        50.835709\n                                    ],\n                                    [\n                                        -0.127597,\n                                        50.835623\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 1.68\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"08dcb583-a312-dd6b-df90-05b776db0d9b\"\n        }\n    ],\n    \"best_match\": {\n        \"address\": \"99, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\n        \"distance\": 9.31,\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.127554,\n                                50.835626\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.127443,\n                                    50.835583\n                                ],\n                                [\n                                    -0.127503,\n                                    50.835552\n                                ],\n                                [\n                                    -0.127584,\n                                    50.835613\n                                ],\n                                [\n                                    -0.127524,\n                                    50.83564\n                                ],\n                                [\n                                    -0.127443,\n                                    50.835583\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.127652,\n                                    50.835595\n                                ],\n                                [\n                                    -0.127689,\n                                    50.835623\n                                ],\n                                [\n                                    -0.127522,\n                                    50.835709\n                                ],\n                                [\n                                    -0.127485,\n                                    50.835681\n                                ],\n                                [\n                                    -0.127652,\n                                    50.835595\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 1.68\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"fc473f4b-310a-7b2e-9b46-faa091fa4fa5\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								},
+								{
+									"name": "Get door and parking details with distance filter",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"latitude\": 51.0,\r\n    \"longitude\": 0.0,\r\n    \"distance_filter\": 1000.0,\r\n    \"additional_matches\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4491"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 28 Jun 2024 06:59:21 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "b888b32a-a291-4272-8937-10989b933042"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aEPTiEZwLPEEo-A="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667e5f49-7fafb6b12bb055f67d6a305f;Parent=3e89f704e154ec0a;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 427271f19372c1be0d143a1d4c76a128.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "XtvyRplJwKgBUIQmLzpYQzyt_b5VUP7aGwBld1UgMt_FvigLMIu8fg=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"additional_matches\": [\n        {\n            \"address\": \"Reesink Turfcare Uk Ltd, Unit 4a, Bluebell Business Estate, Sheffield Park, Uckfield, East Sussex, England, United Kingdom, TN22 3HQ\",\n            \"distance\": 437.23,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.00271,\n                                    50.996457\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.002572,\n                                        50.996307\n                                    ],\n                                    [\n                                        -0.002782,\n                                        50.996536\n                                    ],\n                                    [\n                                        -0.002553,\n                                        50.99662\n                                    ],\n                                    [\n                                        -0.002343,\n                                        50.996391\n                                    ],\n                                    [\n                                        -0.002572,\n                                        50.996307\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.002841,\n                                        50.996404\n                                    ],\n                                    [\n                                        -0.002872,\n                                        50.996435\n                                    ],\n                                    [\n                                        -0.00269,\n                                        50.996508\n                                    ],\n                                    [\n                                        -0.002659,\n                                        50.996477\n                                    ],\n                                    [\n                                        -0.002841,\n                                        50.996404\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 0\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"026ec8c1-cd3f-64d5-158a-d157b4c6e611\"\n        },\n        {\n            \"address\": \"Shepherds Wood, Sheffield Park, Uckfield, East Sussex, England, United Kingdom, TN22 3QS\",\n            \"distance\": 451.45,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    0.006379,\n                                    50.999394\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.006389,\n                                        50.999504\n                                    ],\n                                    [\n                                        0.006506,\n                                        50.999462\n                                    ],\n                                    [\n                                        0.006428,\n                                        50.999374\n                                    ],\n                                    [\n                                        0.00637,\n                                        50.999397\n                                    ],\n                                    [\n                                        0.006345,\n                                        50.999382\n                                    ],\n                                    [\n                                        0.006295,\n                                        50.999401\n                                    ],\n                                    [\n                                        0.006389,\n                                        50.999504\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        0.006479,\n                                        50.999357\n                                    ],\n                                    [\n                                        0.006469,\n                                        50.999321\n                                    ],\n                                    [\n                                        0.006256,\n                                        50.999343\n                                    ],\n                                    [\n                                        0.006266,\n                                        50.999379\n                                    ],\n                                    [\n                                        0.006479,\n                                        50.999357\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 2.93\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"cdfdf6ce-1561-4c10-6065-e47c40ccdc53\"\n        },\n        {\n            \"address\": \"Traditional Oak & Timber Co, The Old Wood Yard, Bluebell Business Estate, Sheffield Park, Uckfield, East Sussex, England, United Kingdom, TN22 3HQ\",\n            \"distance\": 455.06,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.003735,\n                                    50.99665\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": null,\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.003465,\n                                        50.99674\n                                    ],\n                                    [\n                                        -0.003499,\n                                        50.996711\n                                    ],\n                                    [\n                                        -0.003674,\n                                        50.996791\n                                    ],\n                                    [\n                                        -0.00364,\n                                        50.99682\n                                    ],\n                                    [\n                                        -0.003465,\n                                        50.99674\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 15.22\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"cba47e72-22d9-0446-a6f7-295dfda1f2ad\"\n        },\n        {\n            \"address\": \"Horizon Performance Cars, Unit 6-11, Bluebell Business Estate, Sheffield Park, Uckfield, East Sussex, England, United Kingdom, TN22 3HQ\",\n            \"distance\": 455.06,\n            \"geojson\": {\n                \"features\": [\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    -0.003735,\n                                    50.99665\n                                ]\n                            ],\n                            \"type\": \"MultiPoint\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_door\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": null,\n                        \"properties\": {\n                            \"contributors\": [\n                                \"© OpenStreetMap contributors\"\n                            ],\n                            \"naurt_type\": \"naurt_building\"\n                        },\n                        \"type\": \"Feature\"\n                    },\n                    {\n                        \"geometry\": {\n                            \"coordinates\": [\n                                [\n                                    [\n                                        -0.003465,\n                                        50.99674\n                                    ],\n                                    [\n                                        -0.003499,\n                                        50.996711\n                                    ],\n                                    [\n                                        -0.003674,\n                                        50.996791\n                                    ],\n                                    [\n                                        -0.00364,\n                                        50.99682\n                                    ],\n                                    [\n                                        -0.003465,\n                                        50.99674\n                                    ]\n                                ]\n                            ],\n                            \"type\": \"Polygon\"\n                        },\n                        \"properties\": {\n                            \"naurt_type\": \"naurt_parking\"\n                        },\n                        \"type\": \"Feature\"\n                    }\n                ],\n                \"properties\": {\n                    \"minimum_parking_to_door_distance\": 15.22\n                },\n                \"type\": \"FeatureCollection\"\n            },\n            \"id\": \"beb6b5e9-9012-22d1-f4a5-db12f04b5e0d\"\n        }\n    ],\n    \"best_match\": {\n        \"address\": \"Bolton Buildings Ltd, Unit 5, Bluebell Business Estate, Sheffield Park, Uckfield, East Sussex, England, United Kingdom, TN22 3HQ\",\n        \"distance\": 430.97,\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.002797,\n                                50.996547\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.00289,\n                                    50.996513\n                                ],\n                                [\n                                    -0.003138,\n                                    50.996788\n                                ],\n                                [\n                                    -0.002915,\n                                    50.996868\n                                ],\n                                [\n                                    -0.002857,\n                                    50.996803\n                                ],\n                                [\n                                    -0.002759,\n                                    50.996841\n                                ],\n                                [\n                                    -0.002568,\n                                    50.996632\n                                ],\n                                [\n                                    -0.00289,\n                                    50.996513\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.002851,\n                                    50.99641\n                                ],\n                                [\n                                    -0.002882,\n                                    50.996441\n                                ],\n                                [\n                                    -0.0027,\n                                    50.996514\n                                ],\n                                [\n                                    -0.002669,\n                                    50.996483\n                                ],\n                                [\n                                    -0.002851,\n                                    50.99641\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 6.75\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"ed5c69d1-750b-a823-e625-08edd9629db5\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								}
+							]
+						}
+					],
+					"description": "Reverse geocoding is the process of finding addresses near a latitude & longitude. Naurt provides this functionality, but once again returns [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) parking zones, building entrances, and building outlines.\n\n## [Request](https://docs.naurt.com/final-destination/reverse-geocode#request)\n\nNaurt data can be reverse-searched via a `POST` request to the **final-destination endpoint**. Again, data should be provided as a JSON in the body of the request and not in the URL.\n\n``` json\nPOST  https://api.naurt.net/final-destination/v1\nContent-Type: application/json\nAuthorization: <API_KEY_HERE>\n{\n  \"latitude\": Optional<Float>,\n  \"longitude\": Optional<Float>,\n  \"country\": Optional<String>,\n  \"distance_filter\": Optional<Float>,\n  \"additional_matches\": Optional<Bool>,\n}\n\n ```\n\n### [Parameters](https://docs.naurt.com/final-destination/reverse-geocode#parameters)\n\n| Parameter | Type | Optional | Default | Description |\n| --- | --- | --- | --- | --- |\n| **latitude** | float | Yes | None | A valid latitude in [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System#WGS_84) degrees. Range: -90 <= lat <= 90. |\n| **longitude** | float | Yes | None | A valid longitude in [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System#WGS_84) degrees. Range: -180 <= lon < 180. |\n| **distance_filter** | float | Yes | 5000 | A distance in metres (larger than 0) within which you wish to search. When a filter is applied a latitude and longitude must also be provided. Maximum value of 25000 metres |\n| **additional_matches** | Boolean | Yes | False | Provides up to 4 results beyond what Naurt classifies as the `best_match`. |\n| **country** | String | Yes | None | Optional but strongly suggested two digit country code which helps with performance. |\n\n## [Response](https://docs.naurt.com/final-destination/reverse-geocode#response)\n\n### [Success](https://docs.naurt.com/final-destination/reverse-geocode#success)\n\nA `200` response code indicates a successful response with the format as follows.\n\n``` json\n{\n  \"best_match\": Optional<DESTINATION RESPONSE FORMAT>,\n  \"additional_matches\": Optional<List<DESTINATION RESPONSE FORMAT>>,\n  \"version\": Optional<String>\n}\n\n ```\n\nNaurt's best match will be the closest destination to the requested location. You will only have an `additional_matches` field if you set `additional_matches` to true in the request.\n\nThe `DESTINATION RESPONSE FORMAT` is\n\n``` json\n{\n  \"id\": String,\n  \"address\": String,\n  \"geojson\": GeoJSON,\n  \"distance\": Optional<float>\n}\n\n ```\n\nDistance will only be present if you search with a `latitude` and `longitude` and will be the distance of the destination from that position in metres.\n\n### [Failure](https://docs.naurt.com/final-destination/reverse-geocode#failure)\n\nA response code other than `200` indicates a failure to retrieve the requested destination.\n\n``` json\n401 Unauthorized \n{\"error\":\"Please ensure the request contains a valid API key.\"}\n\n ```\n\nIf there are no destinations available which match the search term, the response JSON will not contain any results, but instead a \"naurt_info\" message.\n\n``` json\n{\"naurt_info\":\"Successful request. No destinations match search conditions.\"}\n\n ```\n\n## [Search Restrictions](https://docs.naurt.com/final-destination/reverse-geocode#search-restrictions)\n\nDestinations requested via the API are subject to some restrictions.\n\n- No more than 300 requests per minute can be sent to this endpoint per API key. This limit can be adjusted by speaking to our [support team](https://www.naurt.com/contact).\n    \n- Currently there is a maximum return of 5 destinations per request.\n    \n\nTo limit the search to a specific radius, you can apply a `distance_filter` up to a maximum of 25000m. If unused, it defaults to 5000m."
+				},
+				{
+					"name": "Search By Id",
+					"item": [
+						{
+							"name": "Search By Id",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"8c93eadd-2d50-4c6e-e560-0b08ce0f0730\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{final_destination}}",
+									"host": [
+										"{{final_destination}}"
+									]
+								},
+								"description": "You may have noticed that every destination comes with an `id` field. This is a unique ID for every address. You can also search by this. You could, for example, keep a list of favourite addresses.\n\n## [Request](https://docs.naurt.com/final-destination/search-by-id#request)\n\n``` json\nPOST  https://api.naurt.net/final-destination/v1\nContent-Type: application/json\nAuthorization: <API_KEY_HERE>\n{\n  \"id\": Optional<String>, \n  \"country\": Optional<String>\n}\n\n ```"
+							},
+							"response": [
+								{
+									"name": "Get door and parking details by known unique id",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"8c93eadd-2d50-4c6e-e560-0b08ce0f0730\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{final_destination}}",
+											"host": [
+												"{{final_destination}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "977"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 28 Jun 2024 07:09:30 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "504c161f-19cf-47d7-9f0b-91c0cb070b90"
+										},
+										{
+											"key": "access-control-allow-origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "aEQyrEgprPEEOFQ="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-667e61aa-5c3cf5fc5efcedf751bdb84d;Parent=4d147bae4025181c;Sampled=0;lineage=81d37338:0|6b3b97fd:0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 4b0f0fc4315eea23426f6074a7254a8c.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "IAD89-C2"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "wV9Pfz7UcHUaGTi2KGWGscCzaa357y36FCZ8W1wYA1q9tjlqooj0jg=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"best_match\": {\n        \"address\": \"33, Rugby Road, Brighton, East Sussex, England, United Kingdom, BN1 6EB\",\n        \"geojson\": {\n            \"features\": [\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                -0.137269,\n                                50.839066\n                            ]\n                        ],\n                        \"type\": \"MultiPoint\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_door\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.137299,\n                                    50.839211\n                                ],\n                                [\n                                    -0.137244,\n                                    50.839211\n                                ],\n                                [\n                                    -0.137241,\n                                    50.839157\n                                ],\n                                [\n                                    -0.137214,\n                                    50.839157\n                                ],\n                                [\n                                    -0.137208,\n                                    50.839066\n                                ],\n                                [\n                                    -0.137307,\n                                    50.839066\n                                ],\n                                [\n                                    -0.13731,\n                                    50.839111\n                                ],\n                                [\n                                    -0.137294,\n                                    50.839111\n                                ],\n                                [\n                                    -0.137299,\n                                    50.839211\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"contributors\": [\n                            \"© OpenStreetMap contributors\"\n                        ],\n                        \"naurt_type\": \"naurt_building\"\n                    },\n                    \"type\": \"Feature\"\n                },\n                {\n                    \"geometry\": {\n                        \"coordinates\": [\n                            [\n                                [\n                                    -0.137157,\n                                    50.839003\n                                ],\n                                [\n                                    -0.137155,\n                                    50.838966\n                                ],\n                                [\n                                    -0.13737,\n                                    50.83896\n                                ],\n                                [\n                                    -0.137372,\n                                    50.838997\n                                ],\n                                [\n                                    -0.137157,\n                                    50.839003\n                                ]\n                            ]\n                        ],\n                        \"type\": \"Polygon\"\n                    },\n                    \"properties\": {\n                        \"naurt_type\": \"naurt_parking\"\n                    },\n                    \"type\": \"Feature\"\n                }\n            ],\n            \"properties\": {\n                \"minimum_parking_to_door_distance\": 7.35\n            },\n            \"type\": \"FeatureCollection\"\n        },\n        \"id\": \"8c93eadd-2d50-4c6e-e560-0b08ce0f0730\"\n    },\n    \"version\": \"1.1.3\"\n}"
+								}
+							]
+						}
+					],
+					"description": "You may have noticed that every destination comes with an `id` field. This is a unique ID for every address. You can also search by this. You could, for example, keep a list of favourite addresses.\n\n## [Request](https://docs.naurt.com/final-destination/search-by-id#request)\n\n``` json\nPOST  https://api.naurt.net/final-destination/v1\nContent-Type: application/json\nAuthorization: <API_KEY_HERE>\n{\n  \"id\": Optional<String>, \n  \"country\": Optional<String>\n}\n\n ```\n\n### [Parameters](https://docs.naurt.com/final-destination/search-by-id#parameters)\n\n| Parameter | Type | Optional | Default | Description |\n| --- | --- | --- | --- | --- |\n| **id** | String (UUID) | Yes | None | The unique address ID for direct lookup. |\n| **country** | String | Yes | None | Optional but strongly suggested two digit country code which helps with performance. |\n\n## [Response](https://docs.naurt.com/final-destination/search-by-id#response)\n\n### [Success](https://docs.naurt.com/final-destination/search-by-id#success)\n\nA `200` response code indicates a successful response with the format as follows.\n\n``` json\n{\n  \"best_match\": Optional<DESTINATION RESPONSE FORMAT>,\n  \"version\": Optional<String>\n}\n\n ```\n\nThe `best_match` in this case will be the matching ID.\n\nThe `DESTINATION RESPONSE FORMAT` is\n\n``` json\n{\n  \"id\": String,\n  \"address\": String,\n  \"geojson\": GeoJSON\n}\n\n ```\n\n### [Failure](https://docs.naurt.com/final-destination/search-by-id#failure)\n\nA response code other than `200` indicates a failure to retrieve the requested destination.\n\n``` json\n401 Unauthorized \n{\"error\":\"Please ensure the request contains a valid API key.\"}\n\n ```\n\nIn the case that no matching ID can be found, the response JSON will not contain any results, but instead a \"naurt_info\" message.\n\n``` json\n{\"naurt_info\":\"Successful request. No destinations match search conditions.\"}\n\n ```"
+				}
+			],
+			"description": "Before you start making requests, you'll need to sign up for a free Naurt account on the [Naurt dashboard](https://dashboard.naurt.com/sign-up). All we require is a verified email and you'll be good to go.\n\nOn the dashboard, your API key starting with `nk_`, will be found pre-loaded with **4800** requests per calendar month so you can start using Naurt right away.\n\n## [Final Destination endpoint](https://docs.naurt.com/quickstart/account#final-destination-endpoint)\n\nNaurt's final destination data can be accessed through the following endpoint.\n\n``` json\nhttps://api.naurt.net/final-destination/v1\n\n ```\n\n### [Authorization &amp; Content-Type](https://docs.naurt.com/quickstart/account#authorization-content-type)\n\nEvery request made to Naurt will need to contain a valid API key. Within a header of the request make sure you include,\n\n``` json\nAuthorization: <API-KEY-HERE>\n\n ```\n\nNaurt also requires every request to have a valid JSON body. In another header, make sure to include,\n\n``` json\nContent-Type: application/json\n\n ```\n\n### Note\n\nFor ease of use, you can paste in the API KEY in the Authorization section of this folder (Final Destination) and all the subsequent requests are be set to use the same.\n\nThe endpoint is also set to [Final Destination endpoint ](https://docs.naurt.com/quickstart/account#final-destination-endpoint) through the scripts in this folder. So that anyone can try out our collection without worrying about configuring environemnt or keys. So let's get started!",
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "<key here>",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "Authorization",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"pm.collectionVariables.set(\"final_destination\", \"https://api.naurt.net/final-destination/v1\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "final_destination",
+			"value": ""
+		}
+	]
+}
