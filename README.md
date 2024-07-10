@@ -9,5 +9,6 @@ Currently supported languages
 - Python
 - TypeScript
 - Golang
+- Rust
 
 View the docs for the final destination API [here](https://docs.naurt.com/)

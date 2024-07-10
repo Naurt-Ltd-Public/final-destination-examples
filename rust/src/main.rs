@@ -10,7 +10,6 @@ use reqwest::Client;
 use rocket::{response::content::RawJson, State};
 use rocket_dyn_templates::{tera::Context, Template};
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
 
 #[macro_use]
 extern crate rocket;
