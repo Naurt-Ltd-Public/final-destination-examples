@@ -3,6 +3,8 @@
 This shows off a very basic implementation of using Naurt's final destination API
 in Golang
 
+Detailed walkthrough available at: [Integrarting Naurt’s Geocoder with Go](https://www.naurt.com/blog-posts/integrarting-naurts-geocoder-with-go)
+
 ## Set Up and Usage 
 
 First, make an `api.key` file next to `go.mod`. 
