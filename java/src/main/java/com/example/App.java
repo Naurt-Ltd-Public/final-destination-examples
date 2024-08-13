@@ -1,12 +1,15 @@
 package com.example;
 
-import com.sun.net.httpserver.HttpServer;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-public class DemoApplication {
+import com.sun.net.httpserver.HttpServer;
 
+/**
+ * Hello world!
+ *
+ */
+public class App {
     public static void main(String[] args) throws IOException {
         // Create an HTTP server that listens on port 8080
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
