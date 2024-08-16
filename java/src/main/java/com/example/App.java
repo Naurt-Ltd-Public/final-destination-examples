@@ -5,10 +5,6 @@ import java.net.InetSocketAddress;
 
 import com.sun.net.httpserver.HttpServer;
 
-/**
- * Hello world!
- *
- */
 public class App {
     public static void main(String[] args) throws IOException {
         // Create an HTTP server that listens on port 8080
