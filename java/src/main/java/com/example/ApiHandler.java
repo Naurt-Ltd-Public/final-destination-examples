@@ -100,12 +100,10 @@ public class ApiHandler implements HttpHandler {
     }
 
     private void handleResponse(HttpExchange exchange, String response, int code) throws IOException {
+        exchange.getResponseHeaders().set("Content-Type", "text/html");
         exchange.sendResponseHeaders(code, response.getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        try {
-            os.write(response.getBytes(StandardCharsets.UTF_8));
-        } catch (Exception e) {
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(response.getBytes());
         }
-        os.close();
     }
 }
