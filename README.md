@@ -11,5 +11,6 @@ Currently supported languages
 - Golang
 - Rust
 - Java
+- C#
 
 View the docs for the final destination API [here](https://docs.naurt.com/)
