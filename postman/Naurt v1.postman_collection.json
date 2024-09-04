@@ -21,7 +21,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"address_string\": \"Tower of London\",\r\n    \"country\": \"UK\"\r\n}",
+									"raw": "{\r\n    \"address_string\": \"Rugby Road, Brighton, East Sussex, BN1 6EB\",\r\n    \"country\": \"UK\",\r\n    \"additional_matches\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -52,10 +52,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{final_destination}}",
-											"host": [
-												"{{final_destination}}"
-											]
+											"raw": ""
 										}
 									},
 									"status": "OK",
@@ -437,7 +434,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"latitude\": 50.835551,\r\n    \"longitude\": -0.127613\r\n}",
+									"raw": "{\r\n    \"latitude\": 50.835551,\r\n    \"longitude\": -0.127613,\r\n    \"additional_matches\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -468,10 +465,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{final_destination}}",
-											"host": [
-												"{{final_destination}}"
-											]
+											"raw": ""
 										}
 									},
 									"status": "OK",
@@ -884,10 +878,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{final_destination}}",
-											"host": [
-												"{{final_destination}}"
-											]
+											"raw": ""
 										}
 									},
 									"status": "OK",
@@ -950,15 +941,218 @@
 						}
 					],
 					"description": "You may have noticed that every destination comes with an `id` field. This is a unique ID for every address. You can also search by this. You could, for example, keep a list of favourite addresses.\n\n## [Request](https://docs.naurt.com/final-destination/search-by-id#request)\n\n``` json\nPOST  https://api.naurt.net/final-destination/v1\nContent-Type: application/json\nAuthorization: <API_KEY_HERE>\n{\n  \"id\": Optional<String>, \n  \"country\": Optional<String>\n}\n\n ```\n\n### [Parameters](https://docs.naurt.com/final-destination/search-by-id#parameters)\n\n| Parameter | Type | Optional | Default | Description |\n| --- | --- | --- | --- | --- |\n| **id** | String (UUID) | Yes | None | The unique address ID for direct lookup. |\n| **country** | String | Yes | None | Optional but strongly suggested two digit country code which helps with performance. |\n\n## [Response](https://docs.naurt.com/final-destination/search-by-id#response)\n\n### [Success](https://docs.naurt.com/final-destination/search-by-id#success)\n\nA `200` response code indicates a successful response with the format as follows.\n\n``` json\n{\n  \"best_match\": Optional<DESTINATION RESPONSE FORMAT>,\n  \"version\": Optional<String>\n}\n\n ```\n\nThe `best_match` in this case will be the matching ID.\n\nThe `DESTINATION RESPONSE FORMAT` is\n\n``` json\n{\n  \"id\": String,\n  \"address\": String,\n  \"geojson\": GeoJSON\n}\n\n ```\n\n### [Failure](https://docs.naurt.com/final-destination/search-by-id#failure)\n\nA response code other than `200` indicates a failure to retrieve the requested destination.\n\n``` json\n401 Unauthorized \n{\"error\":\"Please ensure the request contains a valid API key.\"}\n\n ```\n\nIn the case that no matching ID can be found, the response JSON will not contain any results, but instead a \"naurt_info\" message.\n\n``` json\n{\"naurt_info\":\"Successful request. No destinations match search conditions.\"}\n\n ```"
+				},
+				{
+					"name": "GeoJson Visualizer",
+					"item": [
+						{
+							"name": "Sample-1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"additional_matches\": [\r\n        {\r\n            \"address\": \"Nando's, 50, Powis Street, London, Greater London, England, United Kingdom, SE18 6LQ\",\r\n            \"geojson\": {\r\n                \"features\": [\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    0.06676414,\r\n                                    51.49139822\r\n                                ]\r\n                            ],\r\n                            \"type\": \"MultiPoint\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"accuracy\": {\r\n                                \"quality\": \"high\"\r\n                            },\r\n                            \"naurt_type\": \"naurt_door\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        0.0669517,\r\n                                        51.49154663\r\n                                    ],\r\n                                    [\r\n                                        0.0669806,\r\n                                        51.49158478\r\n                                    ],\r\n                                    [\r\n                                        0.0668747,\r\n                                        51.4916153\r\n                                    ],\r\n                                    [\r\n                                        0.0667147,\r\n                                        51.49141312\r\n                                    ],\r\n                                    [\r\n                                        0.066816,\r\n                                        51.4913826\r\n                                    ],\r\n                                    [\r\n                                        0.0668199,\r\n                                        51.49138641\r\n                                    ],\r\n                                    [\r\n                                        0.066947,\r\n                                        51.49155045\r\n                                    ],\r\n                                    [\r\n                                        0.0669517,\r\n                                        51.49154663\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"contributors\": [\r\n                                \"© OpenStreetMap contributors\"\r\n                            ],\r\n                            \"naurt_type\": \"naurt_building\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        0.06661607,\r\n                                        51.49140111\r\n                                    ],\r\n                                    [\r\n                                        0.06664176,\r\n                                        51.49143384\r\n                                    ],\r\n                                    [\r\n                                        0.06683798,\r\n                                        51.49137416\r\n                                    ],\r\n                                    [\r\n                                        0.06681229,\r\n                                        51.49134143\r\n                                    ],\r\n                                    [\r\n                                        0.06661607,\r\n                                        51.49140111\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"accuracy\": {\r\n                                \"quality\": \"high\"\r\n                            },\r\n                            \"minimum_parking_to_door_distance\": 10.26,\r\n                            \"naurt_type\": \"naurt_parking\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    }\r\n                ],\r\n                \"type\": \"FeatureCollection\"\r\n            },\r\n            \"id\": \"5efd9b1b-3c67-d8fc-04d0-a9c6a45add02\"\r\n        },\r\n        {\r\n            \"address\": \"Greggs, 64, Powis Street, London, Greater London, England, United Kingdom, SE18 6LQ\",\r\n            \"geojson\": {\r\n                \"features\": [\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    0.06630164,\r\n                                    51.49154613\r\n                                ]\r\n                            ],\r\n                            \"type\": \"MultiPoint\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"accuracy\": {\r\n                                \"quality\": \"high\"\r\n                            },\r\n                            \"naurt_type\": \"naurt_door\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        0.0665021,\r\n                                        51.49176407\r\n                                    ],\r\n                                    [\r\n                                        0.0664274,\r\n                                        51.49178696\r\n                                    ],\r\n                                    [\r\n                                        0.0662504,\r\n                                        51.49156189\r\n                                    ],\r\n                                    [\r\n                                        0.0663248,\r\n                                        51.491539\r\n                                    ],\r\n                                    [\r\n                                        0.0665021,\r\n                                        51.49176407\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"contributors\": [\r\n                                \"© OpenStreetMap contributors\"\r\n                            ],\r\n                            \"naurt_type\": \"naurt_building\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        0.06614899,\r\n                                        51.49154318\r\n                                    ],\r\n                                    [\r\n                                        0.06617468,\r\n                                        51.49157591\r\n                                    ],\r\n                                    [\r\n                                        0.06637089,\r\n                                        51.49151623\r\n                                    ],\r\n                                    [\r\n                                        0.06634521,\r\n                                        51.4914835\r\n                                    ],\r\n                                    [\r\n                                        0.06614899,\r\n                                        51.49154318\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"accuracy\": {\r\n                                \"quality\": \"high\"\r\n                            },\r\n                            \"minimum_parking_to_door_distance\": 10.57,\r\n                            \"naurt_type\": \"naurt_parking\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    }\r\n                ],\r\n                \"type\": \"FeatureCollection\"\r\n            },\r\n            \"id\": \"7396b215-b238-72b7-ad8b-86fcb4e131c9\"\r\n        },\r\n        {\r\n            \"address\": \"Flat 4, 42a, Powis Street, London, Greater London, England, United Kingdom, SE18 6LQ\",\r\n            \"geojson\": {\r\n                \"features\": [\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    0.06702472,\r\n                                    51.49132514\r\n                                ]\r\n                            ],\r\n                            \"type\": \"MultiPoint\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"accuracy\": {\r\n                                \"quality\": \"high\"\r\n                            },\r\n                            \"naurt_type\": \"naurt_door\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        0.0671973,\r\n                                        51.49147034\r\n                                    ],\r\n                                    [\r\n                                        0.0670858,\r\n                                        51.49150467\r\n                                    ],\r\n                                    [\r\n                                        0.0669619,\r\n                                        51.49134445\r\n                                    ],\r\n                                    [\r\n                                        0.0670736,\r\n                                        51.49131012\r\n                                    ],\r\n                                    [\r\n                                        0.0671973,\r\n                                        51.49147034\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"contributors\": [\r\n                                \"© OpenStreetMap contributors\"\r\n                            ],\r\n                            \"naurt_type\": \"naurt_building\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        0.06687274,\r\n                                        51.49132304\r\n                                    ],\r\n                                    [\r\n                                        0.06689842,\r\n                                        51.49135578\r\n                                    ],\r\n                                    [\r\n                                        0.06709464,\r\n                                        51.4912961\r\n                                    ],\r\n                                    [\r\n                                        0.06706895,\r\n                                        51.49126336\r\n                                    ],\r\n                                    [\r\n                                        0.06687274,\r\n                                        51.49132304\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"accuracy\": {\r\n                                \"quality\": \"high\"\r\n                            },\r\n                            \"minimum_parking_to_door_distance\": 10.52,\r\n                            \"naurt_type\": \"naurt_parking\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    }\r\n                ],\r\n                \"type\": \"FeatureCollection\"\r\n            },\r\n            \"id\": \"a2ab2a0d-cc49-10b0-82af-ee66b656b8db\"\r\n        },\r\n        {\r\n            \"address\": \"Pyramid Pharmacy, 66, Powis Street, London, Greater London, England, United Kingdom, SE18 6LQ\",\r\n            \"geojson\": {\r\n                \"features\": [\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    0.06624196,\r\n                                    51.49156458\r\n                                ]\r\n                            ],\r\n                            \"type\": \"MultiPoint\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"accuracy\": {\r\n                                \"quality\": \"high\"\r\n                            },\r\n                            \"naurt_type\": \"naurt_door\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        0.0664274,\r\n                                        51.49178696\r\n                                    ],\r\n                                    [\r\n                                        0.0664477,\r\n                                        51.49181366\r\n                                    ],\r\n                                    [\r\n                                        0.0664044,\r\n                                        51.49182892\r\n                                    ],\r\n                                    [\r\n                                        0.0663986,\r\n                                        51.49182129\r\n                                    ],\r\n                                    [\r\n                                        0.0663844,\r\n                                        51.4918251\r\n                                    ],\r\n                                    [\r\n                                        0.0661963,\r\n                                        51.49158859\r\n                                    ],\r\n                                    [\r\n                                        0.0661905,\r\n                                        51.49158096\r\n                                    ],\r\n                                    [\r\n                                        0.0662504,\r\n                                        51.49156189\r\n                                    ],\r\n                                    [\r\n                                        0.0664274,\r\n                                        51.49178696\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"contributors\": [\r\n                                \"© OpenStreetMap contributors\"\r\n                            ],\r\n                            \"naurt_type\": \"naurt_building\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        0.06608913,\r\n                                        51.49156139\r\n                                    ],\r\n                                    [\r\n                                        0.06611481,\r\n                                        51.49159412\r\n                                    ],\r\n                                    [\r\n                                        0.06631103,\r\n                                        51.49153444\r\n                                    ],\r\n                                    [\r\n                                        0.06628534,\r\n                                        51.49150171\r\n                                    ],\r\n                                    [\r\n                                        0.06608913,\r\n                                        51.49156139\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"accuracy\": {\r\n                                \"quality\": \"high\"\r\n                            },\r\n                            \"minimum_parking_to_door_distance\": 10.59,\r\n                            \"naurt_type\": \"naurt_parking\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    }\r\n                ],\r\n                \"type\": \"FeatureCollection\"\r\n            },\r\n            \"id\": \"54a6861b-f36c-9d80-5979-bd6c41c7bd6a\"\r\n        }\r\n    ],\r\n    \"best_match\": {\r\n        \"address\": \"62, Powis Street, London, Greater London, England, United Kingdom, SE18 6LQ\",\r\n        \"geojson\": {\r\n            \"features\": [\r\n                {\r\n                    \"geometry\": {\r\n                        \"coordinates\": [\r\n                            [\r\n                                0.06635548,\r\n                                51.49152987\r\n                            ]\r\n                        ],\r\n                        \"type\": \"MultiPoint\"\r\n                    },\r\n                    \"properties\": {\r\n                        \"accuracy\": {\r\n                            \"quality\": \"high\"\r\n                        },\r\n                        \"naurt_type\": \"naurt_door\"\r\n                    },\r\n                    \"type\": \"Feature\"\r\n                },\r\n                {\r\n                    \"geometry\": {\r\n                        \"coordinates\": [\r\n                            [\r\n                                [\r\n                                    0.0664943,\r\n                                    51.49163437\r\n                                ],\r\n                                [\r\n                                    0.0665964,\r\n                                    51.49176407\r\n                                ],\r\n                                [\r\n                                    0.0665195,\r\n                                    51.49178696\r\n                                ],\r\n                                [\r\n                                    0.0665021,\r\n                                    51.49176407\r\n                                ],\r\n                                [\r\n                                    0.0663248,\r\n                                    51.491539\r\n                                ],\r\n                                [\r\n                                    0.0664017,\r\n                                    51.49151611\r\n                                ],\r\n                                [\r\n                                    0.0664255,\r\n                                    51.49154663\r\n                                ],\r\n                                [\r\n                                    0.0664943,\r\n                                    51.49163437\r\n                                ]\r\n                            ]\r\n                        ],\r\n                        \"type\": \"Polygon\"\r\n                    },\r\n                    \"properties\": {\r\n                        \"contributors\": [\r\n                            \"© OpenStreetMap contributors\"\r\n                        ],\r\n                        \"naurt_type\": \"naurt_building\"\r\n                    },\r\n                    \"type\": \"Feature\"\r\n                },\r\n                {\r\n                    \"geometry\": {\r\n                        \"coordinates\": [\r\n                            [\r\n                                [\r\n                                    0.06620276,\r\n                                    51.49152682\r\n                                ],\r\n                                [\r\n                                    0.06622844,\r\n                                    51.49155956\r\n                                ],\r\n                                [\r\n                                    0.06642466,\r\n                                    51.49149988\r\n                                ],\r\n                                [\r\n                                    0.06639898,\r\n                                    51.49146714\r\n                                ],\r\n                                [\r\n                                    0.06620276,\r\n                                    51.49152682\r\n                                ]\r\n                            ]\r\n                        ],\r\n                        \"type\": \"Polygon\"\r\n                    },\r\n                    \"properties\": {\r\n                        \"accuracy\": {\r\n                            \"quality\": \"high\"\r\n                        },\r\n                        \"minimum_parking_to_door_distance\": 10.58,\r\n                        \"naurt_type\": \"naurt_parking\"\r\n                    },\r\n                    \"type\": \"Feature\"\r\n                }\r\n            ],\r\n            \"type\": \"FeatureCollection\"\r\n        },\r\n        \"id\": \"8f9bd0a3-961c-bde9-50e8-5c72046099db\"\r\n    },\r\n    \"version\": \"1.3.0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "postman-echo.com/post",
+									"host": [
+										"postman-echo",
+										"com"
+									],
+									"path": [
+										"post"
+									]
+								},
+								"description": "# Echo visualizer\n\nRequests showing how you can use the Postman Visualizer - by sending the data you want to visualize to the Postman Echo API.\n\n- The [Postman Echo API](https://docs.postman-echo.com/) helps you learn Postman by echoing back whatever you send it.\n    \n- This template uses a `POST` request with **raw** `JSON` in the **Body** to send the data you want to visualize. Here we are using the [Naurt](https://www.naurt.com/) GeoJSON [responses](https://docs.naurt.com/quickstart/geocoding#responses) data.\n    \n- Check out the **Body** of the request to access and change the visualization data.\n    \n- Open the request scripts tab to see how Postman builds the response data into a visualization. Change it to tweak your display!"
+							},
+							"response": []
+						},
+						{
+							"name": "Sample-2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"additional_matches\": [\r\n        {\r\n            \"address\": \"99, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\r\n            \"distance\": 8.55,\r\n            \"geojson\": {\r\n                \"features\": [\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    -0.12755386,\r\n                                    50.83562649\r\n                                ]\r\n                            ],\r\n                            \"type\": \"MultiPoint\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"naurt_type\": \"naurt_door\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        -0.12744281,\r\n                                        50.83558273\r\n                                    ],\r\n                                    [\r\n                                        -0.12750299,\r\n                                        50.83555222\r\n                                    ],\r\n                                    [\r\n                                        -0.1275835,\r\n                                        50.83561325\r\n                                    ],\r\n                                    [\r\n                                        -0.12752371,\r\n                                        50.83563995\r\n                                    ],\r\n                                    [\r\n                                        -0.12744281,\r\n                                        50.83558273\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"contributors\": [\r\n                                \"© OpenStreetMap contributors\"\r\n                            ],\r\n                            \"naurt_type\": \"naurt_building\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        -0.12765211,\r\n                                        50.835595\r\n                                    ],\r\n                                    [\r\n                                        -0.1276886,\r\n                                        50.83562322\r\n                                    ],\r\n                                    [\r\n                                        -0.12752183,\r\n                                        50.83570921\r\n                                    ],\r\n                                    [\r\n                                        -0.12748534,\r\n                                        50.83568099\r\n                                    ],\r\n                                    [\r\n                                        -0.12765211,\r\n                                        50.835595\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"minimum_parking_to_door_distance\": 7.74,\r\n                            \"naurt_type\": \"naurt_parking\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    }\r\n                ],\r\n                \"type\": \"FeatureCollection\"\r\n            },\r\n            \"id\": \"fc473f4b-310a-7b2e-9b46-faa091fa4fa5\"\r\n        },\r\n        {\r\n            \"address\": \"The Martha Gunn, 100, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\r\n            \"distance\": 9.91,\r\n            \"geojson\": {\r\n                \"features\": [\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    -0.12777561,\r\n                                    50.83552396\r\n                                ]\r\n                            ],\r\n                            \"type\": \"MultiPoint\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"naurt_type\": \"naurt_door\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        -0.12759709,\r\n                                        50.83546448\r\n                                    ],\r\n                                    [\r\n                                        -0.12773021,\r\n                                        50.83539963\r\n                                    ],\r\n                                    [\r\n                                        -0.12775721,\r\n                                        50.83542252\r\n                                    ],\r\n                                    [\r\n                                        -0.1277753,\r\n                                        50.83541489\r\n                                    ],\r\n                                    [\r\n                                        -0.12785991,\r\n                                        50.83548355\r\n                                    ],\r\n                                    [\r\n                                        -0.1277087,\r\n                                        50.83555603\r\n                                    ],\r\n                                    [\r\n                                        -0.12759709,\r\n                                        50.83546448\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"contributors\": [\r\n                                \"© OpenStreetMap contributors\"\r\n                            ],\r\n                            \"naurt_type\": \"naurt_building\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        -0.1278694,\r\n                                        50.83548944\r\n                                    ],\r\n                                    [\r\n                                        -0.1279046,\r\n                                        50.8355183\r\n                                    ],\r\n                                    [\r\n                                        -0.12773404,\r\n                                        50.83560128\r\n                                    ],\r\n                                    [\r\n                                        -0.12769883,\r\n                                        50.83557241\r\n                                    ],\r\n                                    [\r\n                                        -0.1278694,\r\n                                        50.83548944\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"minimum_parking_to_door_distance\": 7.62,\r\n                            \"naurt_type\": \"naurt_parking\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    }\r\n                ],\r\n                \"type\": \"FeatureCollection\"\r\n            },\r\n            \"id\": \"c56dbebb-c7ab-ede2-a7ac-f84e57d1878d\"\r\n        },\r\n        {\r\n            \"address\": \"98a, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\r\n            \"distance\": 13.54,\r\n            \"geojson\": {\r\n                \"features\": [\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    -0.12749865,\r\n                                    50.83565449\r\n                                ]\r\n                            ],\r\n                            \"type\": \"MultiPoint\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"naurt_type\": \"naurt_door\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        -0.1273903,\r\n                                        50.83560944\r\n                                    ],\r\n                                    [\r\n                                        -0.12744281,\r\n                                        50.83558273\r\n                                    ],\r\n                                    [\r\n                                        -0.12752371,\r\n                                        50.83563995\r\n                                    ],\r\n                                    [\r\n                                        -0.1274711,\r\n                                        50.83567047\r\n                                    ],\r\n                                    [\r\n                                        -0.1273903,\r\n                                        50.83560944\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"contributors\": [\r\n                                \"© OpenStreetMap contributors\"\r\n                            ],\r\n                            \"naurt_type\": \"naurt_building\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        -0.12759726,\r\n                                        50.83562328\r\n                                    ],\r\n                                    [\r\n                                        -0.12763375,\r\n                                        50.8356515\r\n                                    ],\r\n                                    [\r\n                                        -0.12746698,\r\n                                        50.83573749\r\n                                    ],\r\n                                    [\r\n                                        -0.12743049,\r\n                                        50.83570927\r\n                                    ],\r\n                                    [\r\n                                        -0.12759726,\r\n                                        50.83562328\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"minimum_parking_to_door_distance\": 7.75,\r\n                            \"naurt_type\": \"naurt_parking\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    }\r\n                ],\r\n                \"type\": \"FeatureCollection\"\r\n            },\r\n            \"id\": \"6051bb0b-22d1-a0e9-0a7c-fbf4c32686a8\"\r\n        },\r\n        {\r\n            \"address\": \"98, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\r\n            \"distance\": 13.54,\r\n            \"geojson\": {\r\n                \"features\": [\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    -0.12749865,\r\n                                    50.83565449\r\n                                ]\r\n                            ],\r\n                            \"type\": \"MultiPoint\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"naurt_type\": \"naurt_door\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        -0.1273903,\r\n                                        50.83560944\r\n                                    ],\r\n                                    [\r\n                                        -0.12744281,\r\n                                        50.83558273\r\n                                    ],\r\n                                    [\r\n                                        -0.12752371,\r\n                                        50.83563995\r\n                                    ],\r\n                                    [\r\n                                        -0.1274711,\r\n                                        50.83567047\r\n                                    ],\r\n                                    [\r\n                                        -0.1273903,\r\n                                        50.83560944\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"contributors\": [\r\n                                \"© OpenStreetMap contributors\"\r\n                            ],\r\n                            \"naurt_type\": \"naurt_building\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    },\r\n                    {\r\n                        \"geometry\": {\r\n                            \"coordinates\": [\r\n                                [\r\n                                    [\r\n                                        -0.12759726,\r\n                                        50.83562328\r\n                                    ],\r\n                                    [\r\n                                        -0.12763375,\r\n                                        50.8356515\r\n                                    ],\r\n                                    [\r\n                                        -0.12746698,\r\n                                        50.83573749\r\n                                    ],\r\n                                    [\r\n                                        -0.12743049,\r\n                                        50.83570927\r\n                                    ],\r\n                                    [\r\n                                        -0.12759726,\r\n                                        50.83562328\r\n                                    ]\r\n                                ]\r\n                            ],\r\n                            \"type\": \"Polygon\"\r\n                        },\r\n                        \"properties\": {\r\n                            \"minimum_parking_to_door_distance\": 7.75,\r\n                            \"naurt_type\": \"naurt_parking\"\r\n                        },\r\n                        \"type\": \"Feature\"\r\n                    }\r\n                ],\r\n                \"type\": \"FeatureCollection\"\r\n            },\r\n            \"id\": \"08dcb583-a312-dd6b-df90-05b776db0d9b\"\r\n        }\r\n    ],\r\n    \"best_match\": {\r\n        \"address\": \"Basement Flat, 99, Upper Lewes Road, Brighton, East Sussex, England, United Kingdom, BN2 3FE\",\r\n        \"distance\": 8.55,\r\n        \"geojson\": {\r\n            \"features\": [\r\n                {\r\n                    \"geometry\": {\r\n                        \"coordinates\": [\r\n                            [\r\n                                -0.12755386,\r\n                                50.83562649\r\n                            ]\r\n                        ],\r\n                        \"type\": \"MultiPoint\"\r\n                    },\r\n                    \"properties\": {\r\n                        \"naurt_type\": \"naurt_door\"\r\n                    },\r\n                    \"type\": \"Feature\"\r\n                },\r\n                {\r\n                    \"geometry\": {\r\n                        \"coordinates\": [\r\n                            [\r\n                                [\r\n                                    -0.12744281,\r\n                                    50.83558273\r\n                                ],\r\n                                [\r\n                                    -0.12750299,\r\n                                    50.83555222\r\n                                ],\r\n                                [\r\n                                    -0.1275835,\r\n                                    50.83561325\r\n                                ],\r\n                                [\r\n                                    -0.12752371,\r\n                                    50.83563995\r\n                                ],\r\n                                [\r\n                                    -0.12744281,\r\n                                    50.83558273\r\n                                ]\r\n                            ]\r\n                        ],\r\n                        \"type\": \"Polygon\"\r\n                    },\r\n                    \"properties\": {\r\n                        \"contributors\": [\r\n                            \"© OpenStreetMap contributors\"\r\n                        ],\r\n                        \"naurt_type\": \"naurt_building\"\r\n                    },\r\n                    \"type\": \"Feature\"\r\n                },\r\n                {\r\n                    \"geometry\": {\r\n                        \"coordinates\": [\r\n                            [\r\n                                [\r\n                                    -0.12765211,\r\n                                    50.835595\r\n                                ],\r\n                                [\r\n                                    -0.1276886,\r\n                                    50.83562322\r\n                                ],\r\n                                [\r\n                                    -0.12752183,\r\n                                    50.83570921\r\n                                ],\r\n                                [\r\n                                    -0.12748534,\r\n                                    50.83568099\r\n                                ],\r\n                                [\r\n                                    -0.12765211,\r\n                                    50.835595\r\n                                ]\r\n                            ]\r\n                        ],\r\n                        \"type\": \"Polygon\"\r\n                    },\r\n                    \"properties\": {\r\n                        \"minimum_parking_to_door_distance\": 7.74,\r\n                        \"naurt_type\": \"naurt_parking\"\r\n                    },\r\n                    \"type\": \"Feature\"\r\n                }\r\n            ],\r\n            \"type\": \"FeatureCollection\"\r\n        },\r\n        \"id\": \"4a041d28-9652-cbd8-0735-b4f00213b9dc\"\r\n    },\r\n    \"version\": \"1.3.0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "postman-echo.com/post",
+									"host": [
+										"postman-echo",
+										"com"
+									],
+									"path": [
+										"post"
+									]
+								},
+								"description": "# Echo visualizer\n\nRequests showing how you can use the Postman Visualizer - by sending the data you want to visualize to the Postman Echo API.\n\n- The [Postman Echo API](https://docs.postman-echo.com/) helps you learn Postman by echoing back whatever you send it.\n    \n- This template uses a `POST` request with **raw** `JSON` in the **Body** to send the data you want to visualize. Here we are using the [Naurt](https://www.naurt.com/) GeoJSON [responses](https://docs.naurt.com/quickstart/geocoding#responses) data.\n    \n- Check out the **Body** of the request to access and change the visualization data.\n    \n- Open the request scripts tab to see how Postman builds the response data into a visualization. Change it to tweak your display!"
+							},
+							"response": []
+						},
+						{
+							"name": "Sample-3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"best_match\": {\r\n        \"address\": \"33, Rugby Road, Brighton, East Sussex, England, United Kingdom, BN1 6EB\",\r\n        \"geojson\": {\r\n            \"features\": [\r\n                {\r\n                    \"geometry\": {\r\n                        \"coordinates\": [\r\n                            [\r\n                                -0.13726912,\r\n                                50.83906555\r\n                            ]\r\n                        ],\r\n                        \"type\": \"MultiPoint\"\r\n                    },\r\n                    \"properties\": {\r\n                        \"naurt_type\": \"naurt_door\"\r\n                    },\r\n                    \"type\": \"Feature\"\r\n                },\r\n                {\r\n                    \"geometry\": {\r\n                        \"coordinates\": [\r\n                            [\r\n                                [\r\n                                    -0.1372993,\r\n                                    50.83921051\r\n                                ],\r\n                                [\r\n                                    -0.1372444,\r\n                                    50.83921051\r\n                                ],\r\n                                [\r\n                                    -0.1372412,\r\n                                    50.8391571\r\n                                ],\r\n                                [\r\n                                    -0.13721409,\r\n                                    50.8391571\r\n                                ],\r\n                                [\r\n                                    -0.1372079,\r\n                                    50.83906555\r\n                                ],\r\n                                [\r\n                                    -0.137307,\r\n                                    50.83906555\r\n                                ],\r\n                                [\r\n                                    -0.1373098,\r\n                                    50.83911133\r\n                                ],\r\n                                [\r\n                                    -0.1372937,\r\n                                    50.83911133\r\n                                ],\r\n                                [\r\n                                    -0.1372993,\r\n                                    50.83921051\r\n                                ]\r\n                            ]\r\n                        ],\r\n                        \"type\": \"Polygon\"\r\n                    },\r\n                    \"properties\": {\r\n                        \"contributors\": [\r\n                            \"© OpenStreetMap contributors\"\r\n                        ],\r\n                        \"naurt_type\": \"naurt_building\"\r\n                    },\r\n                    \"type\": \"Feature\"\r\n                },\r\n                {\r\n                    \"geometry\": {\r\n                        \"coordinates\": [\r\n                            [\r\n                                [\r\n                                    -0.13715712,\r\n                                    50.83900251\r\n                                ],\r\n                                [\r\n                                    -0.13715467,\r\n                                    50.83896611\r\n                                ],\r\n                                [\r\n                                    -0.13736979,\r\n                                    50.83896034\r\n                                ],\r\n                                [\r\n                                    -0.13737224,\r\n                                    50.83899674\r\n                                ],\r\n                                [\r\n                                    -0.13715712,\r\n                                    50.83900251\r\n                                ]\r\n                            ]\r\n                        ],\r\n                        \"type\": \"Polygon\"\r\n                    },\r\n                    \"properties\": {\r\n                        \"minimum_parking_to_door_distance\": 10.54,\r\n                        \"naurt_type\": \"naurt_parking\"\r\n                    },\r\n                    \"type\": \"Feature\"\r\n                }\r\n            ],\r\n            \"type\": \"FeatureCollection\"\r\n        },\r\n        \"id\": \"8c93eadd-2d50-4c6e-e560-0b08ce0f0730\"\r\n    },\r\n    \"version\": \"1.3.0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "postman-echo.com/post",
+									"host": [
+										"postman-echo",
+										"com"
+									],
+									"path": [
+										"post"
+									]
+								},
+								"description": "# Echo visualizer\n\nRequests showing how you can use the Postman Visualizer - by sending the data you want to visualize to the Postman Echo API.\n\n- The [Postman Echo API](https://docs.postman-echo.com/) helps you learn Postman by echoing back whatever you send it.\n    \n- This template uses a `POST` request with **raw** `JSON` in the **Body** to send the data you want to visualize. Here we are using the [Naurt](https://www.naurt.com/) GeoJSON [responses](https://docs.naurt.com/quickstart/geocoding#responses) data.\n    \n- Check out the **Body** of the request to access and change the visualization data.\n    \n- Open the request scripts tab to see how Postman builds the response data into a visualization. Change it to tweak your display!"
+							},
+							"response": []
+						}
+					],
+					"description": "[Postman Visualizer](https://learning.postman.com/docs/sending-requests/response-data/visualizer/) provides a programmable way to visually represent your request responses. Visualization code added to the scripts for a request will render in the Visualize tab for the response body, alongside the Pretty, Raw, and Preview options.\n\nAll the above request samples are already equipped with the required scripts to render the vizualization.\n\nThis folder has a few GeoJson samples that you can try out to see the vizualizer in action.  \nIt just uses the postman echo endpoint and the [Naurt](https://www.naurt.com/) GeoJSON [responses](https://docs.naurt.com/quickstart/geocoding#responses)\n\n<img src=\"https://content.pstmn.io/081d60e2-1143-49a3-a0e7-00a3a032afa4/aW1hZ2UucG5n\" width=\"1377\" height=\"867\">\n\n# Echo visualizer\n\nRequests showing how you can use the Postman Visualizer - by sending the data you want to visualize to the Postman Echo API.\n\n- The [Postman Echo API](https://docs.postman-echo.com/) helps you learn Postman by echoing back whatever you send it.\n    \n- This template uses a `POST` request with **raw** `JSON` in the **Body** to send the data you want to visualize. Here we are using the [Naurt](https://www.naurt.com/) GeoJSON [responses](https://docs.naurt.com/quickstart/geocoding#responses) data.\n    \n- Check out the **Body** of the request to access and change the visualization data.\n    \n- Open the request scripts tab to see how Postman builds the response data into a visualization. Change it to tweak your display!",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"// Extract the JSON response\r",
+									"const responseData = pm.response.json().data;\r",
+									"\r",
+									"// Check if the response contains the expected data structure\r",
+									"if (responseData && responseData.best_match && responseData.best_match.geojson) {\r",
+									"    const geojsonData = responseData.best_match.geojson;\r",
+									"\r",
+									"pm.visualizer.set(`\r",
+									"<!DOCTYPE html>\r",
+									"<html>\r",
+									"<head>\r",
+									"    <title>Naurt Geocoder</title>\r",
+									"    <meta charset=\"utf-8\" />\r",
+									"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r",
+									"    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+									"    <style>\r",
+									"        #map {\r",
+									"            height: 100vh;\r",
+									"            margin: 0;\r",
+									"            padding: 0;\r",
+									"            border: none;\r",
+									"        }\r",
+									"    </style>\r",
+									"</head>\r",
+									"<body>\r",
+									"    <div id=\"map\"></div>\r",
+									"    <script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+									"    <script>\r",
+									"        function getColor(type) {\r",
+									"            switch (type) {\r",
+									"                case 'naurt_door': return '#FF0000';\r",
+									"                case 'naurt_building': return '#9d79f2';\r",
+									"                case 'naurt_parking': return '#00FF00';\r",
+									"                default: return '#000000';\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        function style(feature) {\r",
+									"            return {\r",
+									"                fillColor: getColor(feature.properties.naurt_type),\r",
+									"                weight: 2,\r",
+									"                opacity: 1,\r",
+									"                color: 'white',\r",
+									"                dashArray: '5',\r",
+									"                fillOpacity: 0.4\r",
+									"            };\r",
+									"        }\r",
+									"\r",
+									"        function onEachFeatureCurry(address) {\r",
+									"            return function onEachFeature(feature, layer) {\r",
+									"                if (feature.properties) {\r",
+									"                    var popupContent = 'Type: ' + feature.properties.naurt_type;\r",
+									"                    if (feature.properties.naurt_type === 'naurt_building') {\r",
+									"                        popupContent += '<br>Address: ' + address;\r",
+									"                    }\r",
+									"                    layer.bindPopup(popupContent).openPopup();\r",
+									"                }\r",
+									"            };\r",
+									"        }\r",
+									"\r",
+									"        var map = L.map('map').setView([0, 0], 14); // Adjust zoom level for faster initial load\r",
+									"        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+									"            maxZoom: 19,\r",
+									"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+									"        }).addTo(map);\r",
+									"\r",
+									"        var response = ${JSON.stringify(responseData)};\r",
+									"\r",
+									"        L.geoJSON(response.best_match.geojson, {\r",
+									"            style: style,\r",
+									"            onEachFeature: onEachFeatureCurry(response.best_match.address)\r",
+									"        }).addTo(map);\r",
+									"\r",
+									"        if (\"additional_matches\" in response) {\r",
+									"            for (const additionalMatch of response.additional_matches) {\r",
+									"                L.geoJSON(additionalMatch.geojson, {\r",
+									"                    style: style,\r",
+									"                    onEachFeature: onEachFeatureCurry(additionalMatch.address)\r",
+									"                }).addTo(map);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        var bounds = L.geoJSON(response.best_match.geojson).getBounds();\r",
+									"        map.fitBounds(bounds);\r",
+									"    </script>\r",
+									"</body>\r",
+									"</html>\r",
+									"`);\r",
+									"} else {\r",
+									"    pm.visualizer.set(`<p>GeoJSON data not available in the response.</p>`);\r",
+									"}\r",
+									""
+								]
+							}
+						}
+					]
 				}
 			],
-			"description": "Before you start making requests, you'll need to sign up for a free Naurt account on the [Naurt dashboard](https://dashboard.naurt.com/sign-up). All we require is a verified email and you'll be good to go.\n\nOn the dashboard, your API key starting with `nk_`, will be found pre-loaded with **4800** requests per calendar month so you can start using Naurt right away.\n\n## [Final Destination endpoint](https://docs.naurt.com/quickstart/account#final-destination-endpoint)\n\nNaurt's final destination data can be accessed through the following endpoint.\n\n``` json\nhttps://api.naurt.net/final-destination/v1\n\n ```\n\n### [Authorization &amp; Content-Type](https://docs.naurt.com/quickstart/account#authorization-content-type)\n\nEvery request made to Naurt will need to contain a valid API key. Within a header of the request make sure you include,\n\n``` json\nAuthorization: <API-KEY-HERE>\n\n ```\n\nNaurt also requires every request to have a valid JSON body. In another header, make sure to include,\n\n``` json\nContent-Type: application/json\n\n ```\n\n### Note\n\nFor ease of use, you can paste in the API KEY in the Authorization section of this folder (Final Destination) and all the subsequent requests are be set to use the same.\n\nThe endpoint is also set to [Final Destination endpoint ](https://docs.naurt.com/quickstart/account#final-destination-endpoint) through the scripts in this folder. So that anyone can try out our collection without worrying about configuring environemnt or keys. So let's get started!",
+			"description": "Before you start making requests, you'll need to sign up for a free Naurt account on the [Naurt dashboard](https://dashboard.naurt.com/sign-up). All we require is a verified email and you'll be good to go.\n\nOn the dashboard, your API key starting with `nk_`, will be found pre-loaded with **4800** requests per calendar month so you can start using Naurt right away.\n\n## [Final Destination endpoint](https://docs.naurt.com/quickstart/account#final-destination-endpoint)\n\nNaurt's final destination data can be accessed through the following endpoint.\n\n``` json\nhttps://api.naurt.net/final-destination/v1\n\n ```\n\n### [Authorization &amp; Content-Type](https://docs.naurt.com/quickstart/account#authorization-content-type)\n\nEvery request made to Naurt will need to contain a valid API key. Within a header of the request make sure you include,\n\n``` json\nAuthorization: <API-KEY-HERE>\n\n ```\n\nNaurt also requires every request to have a valid JSON body. In another header, make sure to include,\n\n``` json\nContent-Type: application/json\n\n ```\n\n### Note\n\nFor ease of use, you can paste in the API KEY in the Authorization section of this folder (Final Destination) and all the subsequent requests are be set to use the same.\n\nThe endpoint is also set to [Final Destination endpoint ](https://docs.naurt.com/quickstart/account#final-destination-endpoint) through the scripts in this folder. So that anyone can try out our collection without worrying about configuring environemnt or keys. So let's get started!.\n\n### **Geojson Vizualizer**\n\n[Postman Visualizer](https://learning.postman.com/docs/sending-requests/response-data/visualizer/) provides a programmable way to visually represent your request responses. Visualization code added to the scripts for a request will render in the Visualize tab for the response body, alongside the Pretty, Raw, and Preview options.\n\nHere, we have added the scripts for Postman's Visualizer to display geographic data on a map using Leaflet. We'll transform [Naurt](https://www.naurt.com/) GeoJSON [responses](https://docs.naurt.com/quickstart/geocoding#responses) into interactive maps directly within Postman, providing a powerful way to visualize data.\n\n<img src=\"https://content.pstmn.io/59c729c7-a83a-466f-a5bc-2ec2fd00a2b0/aW1hZ2UucG5n\" alt=\"\" height=\"867\" width=\"1377\">",
 			"auth": {
 				"type": "apikey",
 				"apikey": [
 					{
 						"key": "value",
-						"value": "<key here>",
+						"value": "",
 						"type": "string"
 					},
 					{
@@ -985,6 +1179,97 @@
 						"type": "text/javascript",
 						"packages": {},
 						"exec": [
+							"// Extract the JSON response\r",
+							"const responseData = pm.response.json();\r",
+							"\r",
+							"// Check if the response contains the expected data structure\r",
+							"if (responseData && responseData.best_match && responseData.best_match.geojson) {\r",
+							"    const geojsonData = responseData.best_match.geojson;\r",
+							"\r",
+							"pm.visualizer.set(`\r",
+							"<!DOCTYPE html>\r",
+							"<html>\r",
+							"<head>\r",
+							"    <title>Naurt Geocoder</title>\r",
+							"    <meta charset=\"utf-8\" />\r",
+							"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r",
+							"    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+							"    <style>\r",
+							"        #map {\r",
+							"            height: 100vh;\r",
+							"            margin: 0;\r",
+							"            padding: 0;\r",
+							"            border: none;\r",
+							"        }\r",
+							"    </style>\r",
+							"</head>\r",
+							"<body>\r",
+							"    <div id=\"map\"></div>\r",
+							"    <script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+							"    <script>\r",
+							"        function getColor(type) {\r",
+							"            switch (type) {\r",
+							"                case 'naurt_door': return '#FF0000';\r",
+							"                case 'naurt_building': return '#9d79f2';\r",
+							"                case 'naurt_parking': return '#00FF00';\r",
+							"                default: return '#000000';\r",
+							"            }\r",
+							"        }\r",
+							"\r",
+							"        function style(feature) {\r",
+							"            return {\r",
+							"                fillColor: getColor(feature.properties.naurt_type),\r",
+							"                weight: 2,\r",
+							"                opacity: 1,\r",
+							"                color: 'white',\r",
+							"                dashArray: '5',\r",
+							"                fillOpacity: 0.4\r",
+							"            };\r",
+							"        }\r",
+							"\r",
+							"        function onEachFeatureCurry(address) {\r",
+							"            return function onEachFeature(feature, layer) {\r",
+							"                if (feature.properties) {\r",
+							"                    var popupContent = 'Type: ' + feature.properties.naurt_type;\r",
+							"                    if (feature.properties.naurt_type === 'naurt_building') {\r",
+							"                        popupContent += '<br>Address: ' + address;\r",
+							"                    }\r",
+							"                    layer.bindPopup(popupContent).openPopup();\r",
+							"                }\r",
+							"            };\r",
+							"        }\r",
+							"\r",
+							"        var map = L.map('map').setView([0, 0], 14); // Adjust zoom level for faster initial load\r",
+							"        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+							"            maxZoom: 19,\r",
+							"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+							"        }).addTo(map);\r",
+							"\r",
+							"        var response = ${JSON.stringify(responseData)};\r",
+							"\r",
+							"        L.geoJSON(response.best_match.geojson, {\r",
+							"            style: style,\r",
+							"            onEachFeature: onEachFeatureCurry(response.best_match.address)\r",
+							"        }).addTo(map);\r",
+							"\r",
+							"        if (\"additional_matches\" in response) {\r",
+							"            for (const additionalMatch of response.additional_matches) {\r",
+							"                L.geoJSON(additionalMatch.geojson, {\r",
+							"                    style: style,\r",
+							"                    onEachFeature: onEachFeatureCurry(additionalMatch.address)\r",
+							"                }).addTo(map);\r",
+							"            }\r",
+							"        }\r",
+							"\r",
+							"        var bounds = L.geoJSON(response.best_match.geojson).getBounds();\r",
+							"        map.fitBounds(bounds);\r",
+							"    </script>\r",
+							"</body>\r",
+							"</html>\r",
+							"`);\r",
+							"} else {\r",
+							"    pm.visualizer.set(`<p>GeoJSON data not available in the response.</p>`);\r",
+							"}\r",
 							""
 						]
 					}
